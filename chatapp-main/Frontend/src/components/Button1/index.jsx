@@ -2,26 +2,22 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const shapes = {
-  round: "rounded-[10px]",
+  round: "rounded-[23px]",
 };
 const variants = {
   fill: {
-    blue_gray_200: "bg-blue_gray-200 shadow-sm text-black-900",
-    gray_300: "bg-gray-300 shadow-md text-indigo-900",
-    indigo_900: "bg-indigo-900 text-white-A700_cc",
-    blue_500: "bg-blue_gray-100 text-white", // Ajout de la couleur bleue
+    white_A700: "bg-white-A700 text-indigo-900_02",
+    blue: "bg-blue-500 text-white hover:bg-gray-500",  // Couleur bleue avec hover gris
   },
   gradient: {
-    light_blue_800_indigo_900: "bg-gradient to-r from-light-blue-800 to-indigo-900 text-white-A700",
+    light_blue_800_indigo_900_04: "bg-gradient-to-r from-light-blue-800 to-indigo-900 text-white",
   },
 };
-
 const sizes = {
-  lg: "h-[53px] px-[17px]",
-  md: "h-[45px] px-[35px] text-lg",
-  sm: "h-[41px] px-[34px] text-sm",
-  xs: "h-[36px] px-[35px] text-base",
-  xl: "h-[54px] px-[35px] text-[26px]",
+  lg: "h-[110px] px-[33px] text-[34px]",
+  md: "h-[48px] px-[35px] text-base",
+  sm: "h-[46px] px-[35px] text-xl",
+  xs: "h-[44px] px-[35px] text-[25px]",
 };
 
 const Button = ({
@@ -31,8 +27,8 @@ const Button = ({
   rightIcon,
   shape,
   variant = "fill",
-  size = "xl",
-  color = "blue_gray_200",
+  size = "xs",
+  color = "blue", // Couleur par défaut ajustée à bleu
   ...restProps
 }) => {
   return (
@@ -53,9 +49,9 @@ Button.propTypes = {
   leftIcon: PropTypes.node,
   rightIcon: PropTypes.node,
   shape: PropTypes.oneOf(["round"]),
-  size: PropTypes.oneOf(["lg", "md", "sm", "xs", "xl"]),
+  size: PropTypes.oneOf(["lg", "md", "sm", "xs"]),
   variant: PropTypes.oneOf(["fill", "gradient"]),
-  color: PropTypes.oneOf(["blue_gray_200", "gray_300", "indigo_900", "light_blue_800_indigo_900"]),
+  color: PropTypes.oneOf(["white_A700", "light_blue_800_indigo_900_04", "blue"]), // Ajout de l'option "blue"
 };
 
 export { Button };

@@ -1,8 +1,9 @@
 import React from "react";
 import { useRoutes } from "react-router-dom";
-import Home from "pages/Home";
 import NotFound from "pages/NotFound";
 import Roomsframe from "pages/Roomsframe";
+import Login from "pages/Login";
+import Topicsframe from "pages/Topicsframe";
 import Createnewroom from "pages/Createnewroom";
 import Messagesframe from "pages/Messagesframe";
 import Settingsframe from "pages/Settingsframe";
@@ -46,6 +47,13 @@ const ProjectRoutes = () => {
     {
       path: "settingsframe",
       element: <Settingsframe />,
+    }, {
+      path: "topicsframe",
+      element: <Topicsframe />,
+    },
+    {
+      path: "Login",
+      element: <Login />,
     },
   ]);
 

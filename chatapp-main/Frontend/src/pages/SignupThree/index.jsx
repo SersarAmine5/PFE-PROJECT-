@@ -12,6 +12,7 @@ export default function SignupThreePage() {
           content="Join Headspace by setting up your account. Agree to terms and conditions, and become an expert to shape our community. Start your journey with us today."
         />
       </Helmet>
+
       <div className="flex w-full flex-col items-center gap-[38px] bg-white-A700 pb-[99px] md:pb-5">
         {/* header section */}
         <div className="flex justify-center self-stretch bg-gradient pb-[18px] pt-[33px] sm:pt-5">
@@ -23,7 +24,6 @@ export default function SignupThreePage() {
             />
           </div>
         </div>
-
         {/* account setup section */}
         <div className="container-xs flex flex-col items-center gap-2 rounded bg-blue_gray-200_a5 px-[35px] pb-[31px] pt-[35px] shadow-sm md:p-5">
           <Heading as="h1" className="!text-[36.25px]">
@@ -37,14 +37,16 @@ export default function SignupThreePage() {
                   <Img
                     src="images/img_close.svg"
                     alt="close image"
-                    className="absolute bottom-[29.00px] left-[0.00px] m-auto h-[13px] rounded-sm"
+                    className="mb-[-30px] ml-[15px] absolute bottom-[29.00px] left-[0.00px] m-auto h-[13px] rounded-sm"
                   />
                   <Text
                     size="xs"
                     as="p"
-                    className="absolute bottom-[0.00px] right-[0.00px] m-auto w-[89%] !text-[13.34px] leading-5 !text-black-900"
+                    className="mb-[-30px] absolute bottom-[0.00px]  right-[0.00px] m-auto w-[89%] !text-[13.34px] leading-5 !text-black-900"
                   >
-                    <span className="text-black-900">I agree to Headspace’s </span>
+                    <span className="text-black-900">
+                      I agree to Headspace’s 
+                    </span>
                     <span className="text-blue_A400">Terms & Conditions</span>
                     <span className="text-black-900">
                       <>
@@ -54,17 +56,23 @@ export default function SignupThreePage() {
                     </span>
                     <span className="text-blue_A400">Privacy Policy.</span>
                   </Text>
-                  <Heading size="s" as="h2" className="ml-[7px] mt-[9px] md:ml-0">
+                  <Heading
+                    size="s"
+                    as="h2"
+                    className="ml-[7px] mt-[9px] md:ml-0"
+                  >
                     Postulez pour le badge d&#39;Expert
                   </Heading>
                   <Text
                     size="xs"
                     as="p"
-                    className="absolute left-[0.00px] top-[0.00px] m-auto w-[93%] text-center !text-[13.34px] leading-8 tracking-[0.40px] !text-indigo-900_04"
+                    className="absolute left-[0.00px] top-[0.00px] mt-[60px] w-[93%] text-center !text-[13.34px] leading-8 tracking-[0.40px] !text-indigo-900_04"
                   >
-                    En tant qu&#39;Expert, vous aurez le privilège de créer des sujets, des chats, et d&#39;approuver de
-                    nouvelles conversations. Un modérateur vérifiera vos qualifications. Si vous souhaitez façonner
-                    notre communauté, appliquez maintenant ou cliquez sur « Passer pour l&#39;instant ».
+                    En tant qu&#39;Expert, vous aurez le privilège de créer des
+                    sujets, des chats, et d&#39;approuver de nouvelles
+                    conversations. Un modérateur vérifiera vos qualifications.
+                    Si vous souhaitez façonner notre communauté, appliquez
+                    maintenant ou cliquez sur « Passer pour l&#39;instant ».
                   </Text>
                 </div>
                 <Button
@@ -96,7 +104,11 @@ export default function SignupThreePage() {
                         placeholder={`Area of specialization*`}
                         className="mt-[26px] self-stretch sm:pr-5"
                       />
-                      <Text size="md" as="p" className="ml-[5px] mt-4 !text-[15.13px] !text-black-900 md:ml-0">
+                      <Text
+                        size="md"
+                        as="p"
+                        className="ml-[5px] mt-4 !text-[15.13px] !text-black-900 md:ml-0"
+                      >
                         Upload proof of degree*
                       </Text>
 

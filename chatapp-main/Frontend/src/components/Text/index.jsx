@@ -5,13 +5,14 @@ const sizes = {
   lg: "text-[38px] font-normal md:text-4xl sm:text-[34px]",
   s: "text-sm font-normal",
   md: "text-base font-medium",
+  xl: "text-[40px] font-normal md:text-4xl sm:text-[44px]",
 };
 
 const Text = ({ children, className = "", as, size = "s", ...restProps }) => {
   const Component = as || "p";
 
   return (
-    <Component className={`text-indigo-900_b2 font-plusjakartasans ${className} ${sizes[size]}`} {...restProps}>
+    <Component className={`text-blue_gray-300 font-poppins ${className} ${sizes[size]}`} {...restProps}>
       {children}
     </Component>
   );
