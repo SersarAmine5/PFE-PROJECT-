@@ -7,6 +7,13 @@ import Header from "../../components/Header1";
 export default function Hompage() {
   return (
     <>
+    <Helmet>
+      <title>Chat X Home page</title>
+        <meta
+          name="description"
+          content="Web site created using create-react-app"
+        />
+      </Helmet>
       <div className="flex w-full flex-col items-center ">
         {/* navigation bar section */}
         <Header />

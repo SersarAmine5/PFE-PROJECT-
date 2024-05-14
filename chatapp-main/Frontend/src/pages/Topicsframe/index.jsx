@@ -35,12 +35,17 @@ export default function TopicsframePage() {
           </div>
           
           <div className="flex w-full flex-col gap-2">
-            {Array.from({ length: 30 }).map((_, index) => (
-              <Button key={index} className="w-full rounded-lg bg-white px-4 py-2 text-left text-gray-900 shadow">
-                Topic {index + 1}
-              </Button>
-            ))}
-          </div>
+  {Array.from({ length: 30 }).map((_, index) => (
+    <Button
+      key={index}
+      className="w-full rounded-lg bg-white px-4 py-2 text-left text-gray-900 shadow hover:bg-gray-200 hover:shadow-md transition"
+    >
+      Topic {index + 1}
+    </Button>
+  ))}
+</div>
+
+          
         </div>
       </div>
     </>

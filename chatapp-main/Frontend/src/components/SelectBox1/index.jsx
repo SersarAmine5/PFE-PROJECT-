@@ -48,6 +48,7 @@ const SelectBox = React.forwardRef(
             container: (provided) => ({
               ...provided,
               zIndex: 0,
+              boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)", // Ajout d'une ombre au conteneur
             }),
             control: (provided) => ({
               ...provided,
@@ -59,6 +60,7 @@ const SelectBox = React.forwardRef(
               "&:hover": {
                 border: "0 !important",
               },
+              boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)", // Ajout d'une ombre au contrôle
             }),
             input: (provided) => ({
               ...provided,
@@ -82,6 +84,10 @@ const SelectBox = React.forwardRef(
               margin: 0,
             }),
             menuPortal: (base) => ({ ...base, zIndex: 999999 }),
+            menu: (provided) => ({
+              ...provided,
+              boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.2)", // Ajout d'une ombre au menu
+            }),
           }}
           menuPortalTarget={document.body}
           closeMenuOnScroll={(event) => {

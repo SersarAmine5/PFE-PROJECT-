@@ -1,23 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 import { Button, Heading, Img } from "../../components";
 import Header from "../../components/Header";
-import Footer from "../../components/Footer";
+import Footer from "../../components/Footer1";
 
 const data = [
   {
-    dynamicproperty1: "Mindfulness",
-    dynamicproperty2: "Yoga",
-    dynamicproperty3: "Meditation",
-    dynamicproperty4: "Stress Relief",
-    dynamicproperty5: "Sleep",
+    dynamicproperty1: "Quantum Mechanics",
+    dynamicproperty2: "Astrophysics",
+    dynamicproperty3: "Molecular Biology",
+    dynamicproperty4: "Climate Change",
+    dynamicproperty5: "Genomics",
   },
   {
-    dynamicproperty1: "Productivity",
-    dynamicproperty2: "Fitness",
-    dynamicproperty3: "Nutrition",
-    dynamicproperty4: "Personal Growth",
-    dynamicproperty5: "Other",
+    dynamicproperty1: "Artificial Intelligence",
+    dynamicproperty2: "Nanotechnology",
+    dynamicproperty3: "Neuroscience",
+    dynamicproperty4: "Biotechnology",
+    dynamicproperty5: "Renewable Energy",
   },
 ];
 
@@ -44,24 +44,24 @@ export default function SignupTwoPage() {
   return (
     <>
       <Helmet>
-        <title>Select Your Interests - Tailor Your Headspace Experience</title>
+        <title>Center of interest</title>
         <meta
           name="description"
           content="Set up your Headspace account by choosing your fields of interest. Customize your experience to get the most out of your mindfulness journey."
         />
       </Helmet>
-      <Header />
+      <div className="bg-gradient py-6 sm:py-3 flex justify-center">
+        <Img
+          src="images/img_image_removebg_preview.png"
+          alt="header image"
+          className="h-[60px] w-[150px] sm:w-[200px] md:w-[300px]"
+        />
+      </div>
       <div className="flex w-full flex-col items-center gap-16 bg-white pb-73px md:pb-5">
-        <div className="flex justify-center self-stretch bg-gradient pb-19px pt-18px">
-          <Img
-            src="images/img_image_removebg_preview.png"
-            alt="header image"
-            className="h-full w-full object-cover"
-          />
-        </div>
-        <div className="container-xs flex justify-center rounded bg-blue_gray-200_a5 px-35px pb-8 pt-35px shadow-sm">
+        <div className="flex justify-center self-stretch bg-gradient pb-19px pt-18px"></div>
+        <div className="container-xs flex justify-center rounded bg-blue_gray-200_a5 px-35px pb-8 pt-25px shadow-sm">
           <div className="flex w-full flex-col items-center">
-            <Heading as="h1" className="text-5xl text-indigo-900 m-8">
+            <Heading as="h1" className="text-5xl text-indigo-900 m-4">
               Setting up your account
             </Heading>
             <Heading as="h2" className="mt-10 text-2xl text-indigo-900 m-8">
@@ -69,7 +69,10 @@ export default function SignupTwoPage() {
             </Heading>
             <div className="mt-8 flex flex-col gap-6 self-stretch">
               {data.map((group, index) => (
-                <div key={index} className="flex flex-wrap justify-center gap-4">
+                <div
+                  key={index}
+                  className="flex flex-wrap justify-center gap-4"
+                >
                   {Object.values(group).map((tag) => (
                     <label key={tag} className="checkbox-container">
                       {tag}
@@ -86,17 +89,18 @@ export default function SignupTwoPage() {
               ))}
             </div>
             <Button
+              className="mt-10 min-w-[250px] bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              variant="fill"
+              color="blue_500"
               shape="round"
-              className="mt-10 min-w-[200px] rounded-lg font-bold text-lg hover:bg-gray-400 hover:text-white transition duration-300 ease-in-out"
+              size="md"
               disabled={selectedTags.length !== 5}
             >
               Next
             </Button>
-            
           </div>
         </div>
       </div>
-      <Footer />
       <style jsx>{`
         .checkbox-container {
           display: block;
@@ -127,7 +131,7 @@ export default function SignupTwoPage() {
           background-color: #ccc;
         }
         .checkbox-container input:checked ~ .checkmark {
-          background-color: #2196F3;
+          background-color: #2196f3;
         }
         .checkmark:after {
           content: "";

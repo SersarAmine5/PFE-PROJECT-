@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 const variants = {
   primary:
-    "border-gray-600 border border-solid bg-white-A700 checked:border-gray-600 checked:border checked:border-solid checked:bg-white-A700 checked:focus:bg-white-A700 checked:focus:border-gray-600",
+    "border-gray-600 border border-solid bg-white-A700 checked:border-gray-600 checked:border-2 checked:border-solid checked:bg-gray-600 checked:bg-white-A700 checked:focus:bg-white-A700 checked:focus:border-gray-600",
 };
 const sizes = {
   xs: "h-[13px] w-[13px] rounded-sm",
@@ -31,7 +31,7 @@ const CheckBox = React.forwardRef(
 
     return (
       <>
-        <div className={className + " flex items-center gap-[5px] cursor-pointer"}>
+        <div className={`${className} flex items-center gap-2 cursor-pointer`}>
           <input
             className={` ${(size && sizes[size]) || ""} ${(variant && variants[variant]) || ""}`}
             ref={ref}
@@ -41,7 +41,7 @@ const CheckBox = React.forwardRef(
             id={id}
             {...restProps}
           />
-          {!!label && <label htmlFor={id}>{label}</label>}
+          {!!label && <label htmlFor={id} className="cursor-pointer">{label}</label>}
         </div>
         {children}
       </>

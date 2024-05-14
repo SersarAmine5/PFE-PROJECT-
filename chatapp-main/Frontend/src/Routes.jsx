@@ -14,7 +14,7 @@ import SignupThree from "pages/SignupThree";
 
 const ProjectRoutes = () => {
   let element = useRoutes([
-    { path: "/", element: <Roomsframe /> },
+    { path: "/", element: <Hompage /> },
     { path: "*", element: <NotFound /> },
     {
       path: "roomsframe",

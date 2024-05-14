@@ -2,6 +2,13 @@ import React from "react";
 import { Img, Text, Heading } from "./..";
 
 export default function Header({ ...props }) {
+  // Exemple d'objet utilisateur avec des informations dynamiques
+  const user = {
+    name: "Sersar Amine mohammed ",
+    role: "User expert",
+    avatar: "images/logo 2i.jpg",
+  };
+
   return (
     <header
       {...props}
@@ -11,26 +18,23 @@ export default function Header({ ...props }) {
         <Img
           src="images/img_image_removebg_preview.png"
           alt="background image"
-          className="h-[60px] w-[14%] object-cover sm:w-full m-[10px]" 
+          className="h-[60px] w-[14%] object-cover sm:w-full m-[10px]"
         />
         <div className="flex w-[18%] items-start justify-center gap-[22px] self-end py-1 sm:w-full">
-          <div className="relative h-[25px] w-[15%]"> 
-            
-          </div>
+          <div className="relative h-[25px] w-[15%]"></div>
           <div className="flex flex-1 items-center justify-between gap-5">
-            <div className="flex flex-col items-end">
+            <div className="flex flex-col items-start">
               <Heading as="h6" className="!font-poppins !font-semibold !text-gray-50">
-                SERSAR AMINE
+                {user.name}
               </Heading>
               <div className="flex items-center gap-[3px]">
                 <Text as="p" className="!font-poppins !text-gray-50">
-                  User expert
+                  {user.role}
                 </Text>
-                <Img src="images/img_frame.svg" alt="verification badge" className="h-[12px] w-[12px] self-start" /> 
               </div>
             </div>
             <a href="#">
-              <Img src="images/img_avatar_image.png" alt="profile image" className="h-[40px] w-[40px] rounded-[50%]" /> 
+              <Img src={user.avatar} alt="profile image" className="h-[40px] w-[60px] rounded-[50%]" />
             </a>
           </div>
         </div>
