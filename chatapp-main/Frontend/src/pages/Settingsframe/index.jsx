@@ -28,7 +28,7 @@ export default function SettingsframePage() {
       </Helmet>
 
         <Header className="bg-gradient" />
-      <div className="flex w-full flex-col items-center justify-center gap-10 bg-gray-50 pb-20 md:pb-5">
+      <div className="flex w-full flex-col items-center justify-center gap-10 bg-gray-50 pb-20 md:pb-4">
         <div className="w-4/5 md:w-full md:p-5">
           <div className="flex flex-col items-center">
             <div className="container-xs mt-9 pl-20 pr-16 md:p-5 md:px-5">
@@ -62,9 +62,9 @@ export default function SettingsframePage() {
               </div>
               <div className="w-full md:w-full flex flex-col gap-1.5 items-center">
                 <Heading as="h3" className="w-1/2 text-left mb-2 text-indigo-900 font-semibold">About me</Heading>
-                <TextArea
+                <Input
                   shape="round"
-                  name="aboutMe"
+                  name="aboutme"
                   value={user.aboutMe}
                   onChange={handleInputChange}
                   className="self-center w-1/2 border border-blue-500 rounded-lg px-4 py-2"
@@ -90,7 +90,7 @@ export default function SettingsframePage() {
                 />
               </div>
               <div className="w-full md:w-full flex flex-col gap-1.5 items-center">
-                <Heading as="h4" className="w-1/2 text-left mb-2 text-indigo-900 font-semibold">Password</Heading>
+                {/* <Heading as="h4" className="w-1/2 text-left mb-2 text-indigo-900 font-semibold">Password</Heading>
                 <Input
                   shape="round"
                   type="password"
@@ -99,30 +99,35 @@ export default function SettingsframePage() {
                   onChange={handleInputChange}
                   prefix={<Img src="images/mdpssvg.svg" alt="svg" className="h-6 w-6" />}
                   className="self-center w-1/2 border border-blue-500 rounded-lg px-4 py-2"
-                />
+                /> */}
               </div>
-              <div className="w-full md:w-full flex flex-col gap-1.5 items-center">
+                <center>
+              <div className="w-full md:w-full flex  gap-1.5 items-center">
+
                 <Button
-                 className="mt-10 min-w-[250px] bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                 className="mt-[10px] min-w-[250px] bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                  variant="fill"
                  color="blue_500"
                  shape="round"
                  size="md"
-                >
+                 >
                   Reset password
-                </Button>
+                </Button> 
+                <Button
+               className="mt-[10px] min-w-[250px] bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+               variant="fill"
+               color="blue_500"
+               shape="round"
+               size="md"
+               >
+                Save changes
+              </Button>
               </div>
+                </center>
             </div>
 
-            <div className="mt-8 w-full flex flex-col items-center gap-5 md:flex-col">
-              {/* <Button
-                color="indigo_900"
-                size="xs"
-                className="min-w-[139px] self-center rounded-2xl font-bold !text-white-A700"
-              >
-                Save changes
-              </Button> */}
-            </div>
+           
+           
           </div>
         </div>
       </div>

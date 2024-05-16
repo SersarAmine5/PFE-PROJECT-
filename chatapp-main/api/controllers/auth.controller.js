@@ -17,17 +17,16 @@ export const register = async (req, res, next) => {
     next(err);
   }
 };
+
 export const login = async (req, res, next) => {
   try {
-    //
     const user = await User.findOne({ email: req.body.email });
 
     if (!user) return next(createError(404, "User not found!"));
 
     const isCorrect = bcrypt.compareSync(req.body.password, user.password);
 
-    if (!isCorrect)
-      return next(createError(400, "Wrong password or email!"));
+    if (!isCorrect) return next(createError(400, "Wrong password or email!"));
 
     const token = jwt.sign(
       {
@@ -43,7 +42,7 @@ export const login = async (req, res, next) => {
         httpOnly: true,
       })
       .status(200)
-      .send(info);
+      .send(info); // Assurez-vous de renvoyer correctement les informations utilisateur
   } catch (err) {
     next(err);
   }
@@ -58,6 +57,14 @@ export const logout = async (req, res) => {
     .status(200)
     .send("User has been logged out.");
 };
+
+export const getAuthenticatedUser = async (req, res)=> {
+  const userId = req.userId;
+
+  const user = await User.findById(userId);
+
+  res.status(200).json(user);
+}
 
 export const verifyToken = (req, res, next) => {
   const token = req.cookies.accessToken;

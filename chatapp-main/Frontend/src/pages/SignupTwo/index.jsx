@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 import { Button, Heading, Img } from "../../components";
-import Header from "../../components/Header";
-import Footer from "../../components/Footer1";
+import axios from "axios"; // Importez axios pour les requêtes HTTP
+import { useUserContext } from "contexts/user.context";
 
 const data = [
   {
@@ -24,6 +24,8 @@ const data = [
 export default function SignupTwoPage() {
   const [selectedTags, setSelectedTags] = useState([]);
 
+  const { user } = useUserContext();
+
   const handleSelectTag = (tag) => {
     const currentIndex = selectedTags.indexOf(tag);
     const newSelectedTags = [...selectedTags];
@@ -39,6 +41,33 @@ export default function SignupTwoPage() {
     }
 
     setSelectedTags(newSelectedTags);
+  };
+
+  const handleSubmit = async () => {
+    if (selectedTags.length !== 5) {
+      alert("Veuillez sélectionner exactement 5 centres d'intérêt.");
+      return;
+    }
+
+    try {
+      console.log("[user]:", user);
+
+      const userId = user._id; // Remplacez par un ID d'utilisateur réel
+      const response = await axios.post(
+        `http://localhost:8800/api/users/${userId}/interests`,
+        {
+          center_of_interest: selectedTags,
+        }
+      );
+      console.log("Réponse du serveur:", response.data);
+      alert("Centres d'intérêt enregistrés avec succès!");
+    } catch (error) {
+      console.error(
+        "Erreur lors de l'enregistrement des centres d'intérêt:",
+        error.response ? error.response.data : error.message
+      );
+      alert("Erreur lors de l'enregistrement des centres d'intérêt");
+    }
   };
 
   return (
@@ -94,6 +123,7 @@ export default function SignupTwoPage() {
               color="blue_500"
               shape="round"
               size="md"
+              onClick={handleSubmit}
               disabled={selectedTags.length !== 5}
             >
               Next

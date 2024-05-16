@@ -3,12 +3,12 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import userRoute from "./routes/user.route.js";
 import messageRoute from "./routes/message.route.js";
-import roomRoute from "./routes/room.route.js"
-import topicRoute from "./routes/topic.route.js"
+import roomRoute from "./routes/room.route.js";
+import topicRoute from "./routes/topic.route.js";
 import authRoute from "./routes/auth.route.js";
+import interestroute from "./routes/interest.route.js"; // Importez la nouvelle route
 import cookieParser from "cookie-parser";
 import cors from "cors";
-
 
 const app = express();
 
@@ -30,6 +30,7 @@ app.use(express.json());
 
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
+app.use("/api/users", interestroute); 
 app.use("/api/topic", topicRoute);
 app.use("/api/room", roomRoute);
 app.use("/api/messages", messageRoute);
@@ -37,7 +38,6 @@ app.use("/api/messages", messageRoute);
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;
   const errorMessage = err.message || "Something went wrong!";
-
   return res.status(errorStatus).send(errorMessage);
 });
 
@@ -45,4 +45,5 @@ app.listen(8800, () => {
   connect();
   console.log("Connected to backend!");
 });
+
 export { app };

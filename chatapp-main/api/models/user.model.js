@@ -5,17 +5,17 @@ const userSchema = new Schema(
   {
     lastname: {
       type: String,
-      required: true,
+      required: false,
       unique: true,
     },
     firstname: {
       type: String,
-      required: true,
+      required: false,
       unique: true,
     },
     email: {
       type: String,
-      required: true,
+      required: false,
       unique: true,
     },
     password: {
@@ -63,6 +63,10 @@ const userSchema = new Schema(
         },
       },
     ],
+    center_of_interest: {
+      type: [String],
+      required: false,
+    },
   },
   {
     timestamps: true,
