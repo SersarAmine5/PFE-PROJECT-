@@ -1,16 +1,34 @@
-import React from "react";
-import { Img, Text, Heading } from "./..";
-import { useUserContext } from "./../../contexts/user.context";
+import React, { useState } from 'react';
+import { Img, Text, Heading } from './..';
+import { useUserContext } from './../../contexts/user.context';
 
 export default function Header({ ...props }) {
-  // Exemple d'objet utilisateur avec des informations dynamiques
-  // const user = {
-  //   name: "Sersar Amine mohammed ",
-  //   role: "User expert",
-  //   avatar: "images/logo 2i.jpg",
-  // };
+  const { user, isLogedIn, isLoading, logout } = useUserContext();
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  const { user, isLogedIn, isLoading } = useUserContext();
+  // Fonction pour obtenir les initiales du nom complet
+  const getInitials = (name) => {
+    const names = name.split(' ');
+    const initials = names.map(n => n[0]).join('');
+    return initials.toUpperCase();
+  };
+
+  // Gestionnaire d'événements pour le clic sur l'avatar
+  const handleAvatarClick = () => {
+    setMenuOpen(!menuOpen);
+  };
+
+  // Gestionnaire d'événements pour le clic sur "Déconnexion"
+  const handleLogout = () => {
+    setMenuOpen(false);
+    logout();
+  };
+
+  // Gestionnaire d'événements pour le clic sur "Paramètres"
+  const handleSettings = () => {
+    setMenuOpen(false);
+    window.location.href = '/settingsframe';
+  };
 
   return (
     <header
@@ -32,7 +50,7 @@ export default function Header({ ...props }) {
                 as="h6"
                 className="!font-poppins !font-semibold !text-gray-50"
               >
-                {(user && user.lastname) + " " + (user && user.firstname)}
+                {user && (user.lastname + " " + user.firstname)}
               </Heading>
               <div className="flex items-center gap-[3px]">
                 <Text as="p" className="!font-poppins !text-gray-50">
@@ -40,8 +58,32 @@ export default function Header({ ...props }) {
                 </Text>
               </div>
             </div>
-            
-           
+            {user && (
+              <div className="relative">
+                <div
+                  className="bg-gray-500 text-white rounded-full h-10 w-10 flex items-center justify-center cursor-pointer"
+                  onClick={handleAvatarClick}
+                >
+                  {getInitials(user.lastname + " " + user.firstname)}
+                </div>
+                {menuOpen && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg">
+                    <button
+                      onClick={handleSettings}
+                      className="block w-full px-4 py-2 text-left text-gray-700 hover:bg-gray-100"
+                    >
+                      Paramètres
+                    </button>
+                    <button
+                      onClick={handleLogout}
+                      className="block w-full px-4 py-2 text-left text-gray-700 hover:bg-gray-100"
+                    >
+                      Déconnexion
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </div>

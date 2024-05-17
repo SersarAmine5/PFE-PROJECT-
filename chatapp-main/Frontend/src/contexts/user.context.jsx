@@ -1,12 +1,13 @@
 import React from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export const UserContext = React.createContext(null);
 
 export const UserContextProvider = ({ children }) => {
   const [user, setUser] = React.useState(undefined);
   const [isLogedIn, setIsLogedIn] = React.useState(undefined);
-
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = React.useState(true);
 
   React.useEffect(async () => {
@@ -18,7 +19,7 @@ export const UserContextProvider = ({ children }) => {
         { withCredentials: true }
       );
 
-      if (user !== null) {
+      if (response.data !== null) {
         setUser(response.data);
         setIsLogedIn(true);
         setIsLoading(false);
@@ -42,7 +43,7 @@ export const UserContextProvider = ({ children }) => {
         { withCredentials: true }
       );
 
-      if (user !== null) {
+      if (response.data !== null) {
         setUser(response.data);
         setIsLogedIn(true);
         setIsLoading(false);
@@ -57,9 +58,19 @@ export const UserContextProvider = ({ children }) => {
       setIsLoading(false);
     }
   };
+  const logout = async () => {
+    try {
+      await axios.post('http://localhost:8800/api/auth/logout');  // Utilisez l'URL correcte
+      setUser(null);
+      setIsLogedIn(false);
+      navigate('/login');  // Redirige vers la page de connexion
+    } catch (error) {
+      console.error('Erreur lors de la déconnexion', error);
+    }
+  };
 
   return (
-    <UserContext.Provider value={{ user, login, isLogedIn, isLoading }}>
+    <UserContext.Provider value={{ user, isLoading, login, logout }}>
       {children}
     </UserContext.Provider>
   );
