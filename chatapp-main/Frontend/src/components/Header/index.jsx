@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Img, Text, Heading } from './..';
 import { useUserContext } from './../../contexts/user.context';
+import { useNavigate } from "react-router-dom"; 
 
 export default function Header({ ...props }) {
   const { user, isLogedIn, isLoading, logout } = useUserContext();
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate(); 
 
   // Fonction pour obtenir les initiales du nom complet
   const getInitials = (name) => {
@@ -22,6 +24,7 @@ export default function Header({ ...props }) {
   const handleLogout = () => {
     setMenuOpen(false);
     logout();
+    navigate('/hompage');
   };
 
   // Gestionnaire d'événements pour le clic sur "Paramètres"
