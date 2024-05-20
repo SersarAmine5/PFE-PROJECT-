@@ -43,7 +43,7 @@ export default function SignupOne() {
     e.preventDefault();
 
     if (formData.password !== formData.confirmPassword) {
-      setError("Passwords do not match");
+      setError("Les mots de passe ne correspondent pas");
       return;
     }
 
@@ -68,17 +68,17 @@ export default function SignupOne() {
   return (
     <>
       <Helmet>
-        <title>Personal infos</title>
+        <title>Informations personnelles</title>
         <meta
           name="description"
-          content="Web site created using create-react-app"
+          content="Site web créé avec create-react-app"
         />
       </Helmet>
       <div className="overflow-hidden">
         <div className="bg-gradient py-6 sm:py-3 flex justify-center">
           <Img
             src="images/img_image_removebg_preview.png"
-            alt="header image"
+            alt="image d'en-tête"
             className="h-[60px] w-[150px] sm:w-[200px] md:w-[300px]"
           />
         </div>
@@ -86,14 +86,14 @@ export default function SignupOne() {
           <div className="flex justify-center p-9 sm:p-5 bg-blue_gray-200_a5 rounded shadow-sm w-[45rem] mt-8">
             <div className="w-full max-w-md flex flex-col items-center">
               <Heading as="h1" className="text-4xl text-indigo-900 mb-5">
-                Sign up
+                Inscription
               </Heading>
               <form onSubmit={handleSubmit} className="w-full">
                 <Input
                   shape="round"
                   type="text"
                   name="firstname"
-                  placeholder="First Name*"
+                  placeholder="Prénom*"
                   className="w-full mb-4"
                   onChange={handleChange}
                 />
@@ -101,14 +101,14 @@ export default function SignupOne() {
                   shape="round"
                   type="text"
                   name="lastname"
-                  placeholder="Last Name*"
+                  placeholder="Nom*"
                   className="w-full mb-4"
                   onChange={handleChange}
                 />
                 <SelectBox
                   shape="round"
                   name="gender"
-                  placeholder="Gender"
+                  placeholder="Sexe"
                   options={dropDownOptions}
                   className="w-full mb-4"
                   onChange={(value) => handleSelectChange("gender", value)}
@@ -117,7 +117,7 @@ export default function SignupOne() {
                   <SelectBox
                     shape="round"
                     name="day"
-                    placeholder="DD"
+                    placeholder="JJ"
                     options={dropDownOptions}
                     variant="fill"
                     size="xs"
@@ -136,7 +136,7 @@ export default function SignupOne() {
                   <SelectBox
                     shape="round"
                     name="year"
-                    placeholder="YYYY"
+                    placeholder="AAAA"
                     options={dropDownOptions}
                     className="w-1/3"
                     onChange={(value) => handleSelectChange("year", value)}
@@ -146,7 +146,7 @@ export default function SignupOne() {
                   shape="round"
                   type="email"
                   name="email"
-                  placeholder="Email Address*"
+                  placeholder="Adresse e-mail*"
                   className="w-full mb-4"
                   onChange={handleChange}
                 />
@@ -154,7 +154,7 @@ export default function SignupOne() {
                   shape="round"
                   type="password"
                   name="password"
-                  placeholder="Password*"
+                  placeholder="Mot de passe*"
                   className="w-full mb-4"
                   onChange={handleChange}
                 />
@@ -162,35 +162,35 @@ export default function SignupOne() {
                   shape="round"
                   type="password"
                   name="confirmPassword"
-                  placeholder="Confirm Password*"
+                  placeholder="Confirmer le mot de passe*"
                   className="w-full mb-4"
                   onChange={handleChange}
                 />
                 <div className="flex items-center gap-2">
                   <input type="checkbox" id="terms" />
                   <label htmlFor="terms" className="flex items-center ">
-                    I agree to Headspace's Terms & Conditions and acknowledge
-                    the Privacy Policy.
+                    J'accepte les termes et conditions de Headspace et reconnais
+                    la politique de confidentialité.
                   </label>
                 </div>
                 {error && <p className="text-red-500">{error}</p>}
                 <div className="flex justify-center mt-[50px] w-full">
                   <Button
-                    className="w-80 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    className="w-80 bg-gradient text-white-A700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                     variant="fill"
                     color="blue_500"
                     shape="round"
                     size="md"
                     type="submit"
                   >
-                    Create an account
+                    Créer un compte
                   </Button>
                 </div>
               </form>
               <Text size="md" as="p" className="mt-4 text-center">
-                Already have an account?{" "}
+                Vous avez déjà un compte ?{" "}
                 <Link to="/login" className="text-blue-400 cursor-pointer">
-                  Login
+                  Se connecter
                 </Link>
               </Text>
             </div>

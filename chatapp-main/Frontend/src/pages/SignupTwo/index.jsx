@@ -6,18 +6,18 @@ import { useUserContext } from "contexts/user.context";
 
 const data = [
   {
-    dynamicproperty1: "Quantum Mechanics",
-    dynamicproperty2: "Astrophysics",
-    dynamicproperty3: "Molecular Biology",
-    dynamicproperty4: "Climate Change",
-    dynamicproperty5: "Genomics",
+    dynamicproperty1: "Mécanique quantique",
+    dynamicproperty2: "Astrophysique",
+    dynamicproperty3: "Biologie moléculaire",
+    dynamicproperty4: "Changement climatique",
+    
   },
   {
-    dynamicproperty1: "Artificial Intelligence",
-    dynamicproperty2: "Nanotechnology",
-    dynamicproperty3: "Neuroscience",
-    dynamicproperty4: "Biotechnology",
-    dynamicproperty5: "Renewable Energy",
+    dynamicproperty1: "Intelligence artificielle",
+    dynamicproperty2: "Nanotechnologie",
+    dynamicproperty3: "Neurosciences",
+    dynamicproperty4: "Biotechnologie",
+    dynamicproperty5: "Énergie renouvelable"
   },
 ];
 
@@ -91,10 +91,10 @@ export default function SignupTwoPage() {
         <div className="container-xs flex justify-center rounded bg-blue_gray-200_a5 px-35px pb-8 pt-25px shadow-sm">
           <div className="flex w-full flex-col items-center">
             <Heading as="h1" className="text-5xl text-indigo-900 m-4">
-              Setting up your account
+              Finaliser votre inscription
             </Heading>
             <Heading as="h2" className="mt-10 text-2xl text-indigo-900 m-8">
-              Choose 5 of your fields of interest
+              Choisissez 5 de vos centres d'intérêt
             </Heading>
             <div className="mt-8 flex flex-col gap-6 self-stretch">
               {data.map((group, index) => (
@@ -118,7 +118,7 @@ export default function SignupTwoPage() {
               ))}
             </div>
             <Button
-              className="mt-10 min-w-[250px] bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              className="mt-10 min-w-[250px] bg-gradient text-white-A700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
               variant="fill"
               color="blue_500"
               shape="round"

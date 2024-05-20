@@ -110,7 +110,7 @@ export default function SignupThreePage() {
             {/* buttons section */}
             <div className="flex justify-center gap-4 mt-6 w-full">
               <Button
-                className="mt-[10px] min-w-[250px] bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                className="mt-[10px] min-w-[250px] bg-gradient text-white-A700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 variant="fill"
                 color="blue_500"
                 shape="round"
@@ -119,7 +119,7 @@ export default function SignupThreePage() {
                 Skip for now
               </Button>
               <Button
-                className="mt-[10px] min-w-[250px] bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                className="mt-[10px] min-w-[250px] bg-gradient text-white-A700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 variant="fill"
                 color="blue_500"
                 shape="round"

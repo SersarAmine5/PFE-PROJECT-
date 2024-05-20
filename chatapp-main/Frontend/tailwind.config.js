@@ -38,7 +38,7 @@ module.exports = {
         lg: "0px 2px 10px 0px #597af09e",
       },
       backgroundImage: {
-        gradient: "linear-gradient(90deg, #0066cc,#003366)",
+        gradient: "linear-gradient(150deg, #0066cc,#003366)",
         gradient1: "linear-gradient(90deg, #0064c8,#003366)",
       },
       fontFamily: {
