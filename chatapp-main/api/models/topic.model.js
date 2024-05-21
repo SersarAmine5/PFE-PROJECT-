@@ -19,9 +19,16 @@ const TopicSchema = new Schema(
       type: String,
       required: true,
     },
+    rooms: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Room",
+      }
+    ]
   },
   {
     timestamps: true,
   }
 );
+
 export default mongoose.model("Topic", TopicSchema);

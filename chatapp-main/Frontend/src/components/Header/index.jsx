@@ -38,15 +38,15 @@ export default function Header({ ...props }) {
       {...props}
       className={`${props.className} flex justify-center items-center pt-2 pb-2 px-3.5 sm:pb-3`}
     >
-      <div className="mx-auto flex w-full max-w-[1415px] items-center justify-between gap-5 sm:flex-col">
+      <div className="mx-auto flex w-full max-w-[1415px] items-center justify-between  sm:flex-col">
         <Img
           src="images/img_image_removebg_preview.png"
           alt="background image"
           className="h-[60px] w-[14%] object-cover sm:w-full m-[10px]"
         />
-        <div className="flex w-[18%] items-start justify-center gap-[22px] self-end py-1 sm:w-full">
+        <div className="flex w-[18%] items-start justify-center gap-[10px] self-end py-1 sm:w-full">
           <div className="relative h-[25px] w-[15%]"></div>
-          <div className="flex flex-1 items-center justify-between gap-5">
+          <div className="flex flex-1 items-center justify-between ">
             <div className="flex flex-col items-start">
               {isLoading && "Loading"}
               <Heading
@@ -55,7 +55,7 @@ export default function Header({ ...props }) {
               >
                 {user && (user.lastname + " " + user.firstname)}
               </Heading>
-              <div className="flex items-center gap-[3px]">
+              <div className="flex items-center gap-[1px]">
                 <Text as="p" className="!font-poppins !text-gray-50">
                   {user && user.role}
                 </Text>
@@ -64,7 +64,7 @@ export default function Header({ ...props }) {
             {user && (
               <div className="relative">
                 <div
-                  className="bg-gray-500 text-white rounded-full h-10 w-10 flex items-center justify-center cursor-pointer"
+                  className="bg-white-A700 text-white rounded-full h-10 w-10 flex items-center justify-center cursor-pointer"
                   onClick={handleAvatarClick}
                 >
                   {getInitials(user.lastname + " " + user.firstname)}

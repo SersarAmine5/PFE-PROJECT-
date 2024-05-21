@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 const { Schema } = mongoose;
+
 const RoomSchema = new Schema(
   {
     roomId: {
@@ -10,7 +11,6 @@ const RoomSchema = new Schema(
       type: String,
       required: true,
     },
-
     initialProblem: {
       type: String,
       required: true,
@@ -20,7 +20,8 @@ const RoomSchema = new Schema(
       required: true,
     },
     topicId: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Topic",
       required: true,
     },
     userId: {
@@ -40,4 +41,4 @@ const RoomSchema = new Schema(
 );
 
 const Room = mongoose.model("Room", RoomSchema);
-export default Room ;
+export default Room;

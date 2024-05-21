@@ -3,18 +3,33 @@ import createError from "../utils/createError.js";
 import User from "../models/user.model.js";
 
 export const createTopic = async (req, res, next) => {
-  const topic = new Topic(req.body);
+  try {
+    const { emojiIcon, description, name, id } = req.body;
 
-  const user_subscription = req.user.topic_subscribed_at.find(
-    (subscription) => subscription.topic_id === topic.id
-  );
+    // Vérifiez si tous les champs requis sont présents
+    if (!emojiIcon || !description || !name || !id) {
+      return res.status(400).send({ message: 'All fields are required.' });
+    }
 
-  if (!user_subscription || !user_subscription.isExpert) {
-    return next(createError(403, "Only subscribed experts can ceate a topic!"));
+    // Créez un nouveau topic avec les données de la requête
+    const topic = new Topic({ emojiIcon, description, name, id });
+
+    // Sauvegardez le topic dans la base de données
+    await topic.save();
+
+    // Envoyez une réponse de succès
+    res.status(201).send(topic);
+  } catch (error) {
+    // Gérer les erreurs de validation et autres erreurs
+    if (error.name === 'ValidationError') {
+      return res.status(400).send({ message: error.message, errors: error.errors });
+    }
+
+    // Gérer les autres types d'erreurs
+    next(error);
   }
-  await topic.save();
-  res.status(201).send(topic);
 };
+
 
 export const deleteTopic = async (req, res, next) => {
   const topic = await Topic.findById(req.params.id);

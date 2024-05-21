@@ -105,7 +105,7 @@ export default function SettingsframePage() {
               <div className="w-full md:w-full flex  gap-1.5 items-center">
 
                 <Button
-                 className="mt-[10px] min-w-[250px] bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                 className="mt-[10px] min-w-[250px] bg-gradient text-white-A700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                  variant="fill"
                  color="blue_500"
                  shape="round"
@@ -114,7 +114,7 @@ export default function SettingsframePage() {
                   Reset password
                 </Button> 
                 <Button
-               className="mt-[10px] min-w-[250px] bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+               className="mt-[10px] min-w-[250px] bg-gradient text-white-A700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                variant="fill"
                color="blue_500"
                shape="round"

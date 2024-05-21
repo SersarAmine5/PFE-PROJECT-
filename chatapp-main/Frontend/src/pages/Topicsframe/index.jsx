@@ -3,19 +3,20 @@ import { Helmet } from 'react-helmet';
 import { Button, Input, Heading } from '../../components';
 import Header from '../../components/Header';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export default function TopicsframePage() {
   const [searchBarValue, setSearchBarValue] = useState("");
   const [topics, setTopics] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchTopics = async () => {
       try {
-        const token = localStorage.getItem('authToken');
         const response = await axios.get('http://localhost:8800/api/topic/topics', {
-          withCredentials : true
+          withCredentials: true
         });
         setTopics(response.data);
         setIsLoading(false);
@@ -30,6 +31,11 @@ export default function TopicsframePage() {
 
   const handleSearchChange = (e) => {
     setSearchBarValue(e.target.value);
+  };
+
+  const handleTopicClick = (topicId) => {
+    localStorage.setItem('selectedTopicId', topicId);
+    navigate('/roomsframe'); // Utiliser navigate à la place de history.push
   };
 
   return (
@@ -57,13 +63,14 @@ export default function TopicsframePage() {
           </div>
           <div className="flex w-full flex-col gap-2">
             {isLoading ? (
-              "loading"
+              <div>Loading...</div>
             ) : error ? (
-              "Something went wrong!"
+              <div>{error}</div>
             ) : (
-              topics.map((topic, index) => (
+              topics.filter(topic => topic.name.toLowerCase().includes(searchBarValue.toLowerCase())).map((topic) => (
                 <Button
-                  key={index}
+                  key={topic._id}
+                  onClick={() => handleTopicClick(topic._id)}
                   className="w-full rounded-lg bg-white px-4 py-2 text-left text-gray-900 shadow hover:bg-gray-200 hover:shadow-md transition"
                 >
                   {topic.name}

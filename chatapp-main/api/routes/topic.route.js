@@ -17,7 +17,7 @@ import {
 const router = express.Router();
 router.get("/topics", getTopics);
 router.get("/topics/:id", verifyToken, getTopic);
-router.post("/topics", verifyToken, checkIfUserIsExpert, createTopic);
+router.post("/topics", createTopic);
 router.post("/topics/:id", verifyToken, updateTopic);
 router.delete("/topics/:id", verifyToken, checkIfUserIsExpert, deleteTopic);
 

@@ -6,12 +6,10 @@ const userSchema = new Schema(
     lastname: {
       type: String,
       required: false,
-      unique: true,
     },
     firstname: {
       type: String,
       required: false,
-      unique: true,
     },
     email: {
       type: String,
@@ -44,7 +42,7 @@ const userSchema = new Schema(
     },
     role: {
       type: String,
-      enum: ["user", "admin", "moderator", "expert"],
+      enum: ["user", "admin", "moderator", "utilisateur expert"],
       default: "user",
     },
     topic_subscribed_at: [
