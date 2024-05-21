@@ -1,6 +1,7 @@
 import Topic from "../models/topic.model.js";
 import createError from "../utils/createError.js";
 import User from "../models/user.model.js";
+import Room from "../models/room.model.js";
 
 export const createTopic = async (req, res, next) => {
   try {
@@ -80,4 +81,18 @@ export const updateTopic = async (req, res, next) => {
   });
 
   res.status(200).send(updatedTopic);
+};
+
+
+// Route pour obtenir les rooms d'un topic spécifique
+export const getRoomsByTopic = async (req, res, next) => {
+  try {
+    const { topicId } = req.params;
+
+    const rooms = await Room.find({ topicId });
+    
+    res.status(200).json(rooms);
+  } catch (error) {
+    res.status(500).json({ message: 'Error retrieving rooms', error });
+  }
 };

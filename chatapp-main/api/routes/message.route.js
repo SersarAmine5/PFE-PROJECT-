@@ -18,6 +18,8 @@ import {
 
 const router = express.Router();
 
+// create endpoint to fetch messages
+
 router.post("/messages", verifyToken, createMessage);
 router.get("/messages/:id", verifyToken, getMessage);
 router.get("/messages/:id", verifyToken, getMessages);

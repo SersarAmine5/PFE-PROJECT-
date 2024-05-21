@@ -1,33 +1,23 @@
 import express from "express";
 import {
   approveRoom,
-  requestCreateRoom,
+  createRoom,
   deleteRoom,
   getRoom,
   getRooms,
   updateRoom,
 } from "../controllers/room.controller.js";
-
 import {
-  checkIfUserIsAdmin,
-  checkIfUserIsExpert,
-  checkIfUserIsModerator,
   verifyToken,
 } from "../middleware/jwt.js";
 
+const router = express.Router();
 
-const router = express.Router()
-
-router.get("/rooms", verifyToken, getRooms);
-router.get("/rooms/:id", verifyToken, getRoom);
-router.post("/rooms", verifyToken, requestCreateRoom);
-router.patch("/rooms/:id", verifyToken, updateRoom);
-router.delete("/rooms/:id", verifyToken, deleteRoom);
-router.post(
-  "/rooms/approveRoom",
-  verifyToken,
-  checkIfUserIsExpert,
-  approveRoom
-);
+router.delete('/:id', deleteRoom);
+router.get('/:id', verifyToken, getRoom);
+router.get('/', getRooms);
+router.put('/:id', updateRoom);
+router.post('/:id/approve', approveRoom);
+router.post('/create', createRoom);
 
 export default router;

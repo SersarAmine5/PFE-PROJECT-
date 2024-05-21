@@ -32,9 +32,8 @@ app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/users", interestroute); 
 app.use("/api/topic", topicRoute);
-app.use("/api/room", roomRoute);
 app.use("/api/messages", messageRoute);
-
+app.use('/api/rooms', roomRoute);
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;
   const errorMessage = err.message || "Something went wrong!";

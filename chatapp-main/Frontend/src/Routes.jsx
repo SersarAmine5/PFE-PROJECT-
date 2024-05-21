@@ -16,15 +16,15 @@ const ProjectRoutes = () => {
   let element = useRoutes([
     { path: "/", element: <Hompage /> },
     { path: "*", element: <NotFound /> },
-    { path: "roomsframe", element: <Roomsframe /> },
+    { path: "/topics/:topicId", element: <Roomsframe /> },
     { path: "createnewroom", element: <Createnewroom /> },
     { path: "hompage", element: <Hompage /> },
     { path: "signupone", element: <SignupOne /> },
     { path: "signuptwo", element: <SignupTwo /> },
     { path: "signupthree", element: <SignupThree /> },
-    { path: "messagesframe", element: <Messagesframe /> },
+    { path: "/topics/:topicId/:roomId", element: <Messagesframe /> },
     { path: "settingsframe", element: <Settingsframe /> },
-    { path: "topicsframe", element: <Topicsframe /> },
+    { path: "/topics", element: <Topicsframe /> },
     { path: "login", element: <Login /> },
   ]);
 
