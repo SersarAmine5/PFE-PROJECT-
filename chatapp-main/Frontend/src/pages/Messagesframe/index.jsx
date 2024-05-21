@@ -11,7 +11,7 @@ export default function MessagesframePage() {
   const [newMessage, setNewMessage] = useState("");
 
   const [messages, setMessages] = useState([]);
-  const [messagesError, setmessagesError] = useState(null);
+  const [messagesError, setMessagesError] = useState(null);
   const [isMessagesLoading, setIsMessagesLoading] = useState(true);
 
   const [room, setRoom] = useState([]);
@@ -25,12 +25,12 @@ export default function MessagesframePage() {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
- 
+
   useEffect(() => {
     const fetchRoom = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8800/api/rooms/${roomId}`,
+          'http://localhost:8800/api/rooms/${roomId}',
           {
             withCredentials: true,
           }
@@ -49,7 +49,7 @@ export default function MessagesframePage() {
     const fetchMessages = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8800/api/rooms/${roomId}/messages`,
+          'http://localhost:8800/api/rooms/${roomId}/messages',
           {
             withCredentials: true,
           }
@@ -58,15 +58,16 @@ export default function MessagesframePage() {
         setMessages(response.data);
         setIsMessagesLoading(false);
 
-        console.log("[room]:", response.data);
+        console.log("[messages]:", response.data);
       } catch (err) {
-        setRoomError("Something went wrong!");
+        setMessagesError("Something went wrong!");
         setIsMessagesLoading(false);
       }
+     fetchRoom();
+    fetchMessages();
     };
 
-    // fetchMessages();
-    fetchRoom();
+
     // const initialMessages = Array.from({ length: 20 }, (_, i) => {
     //   const baseTime = new Date("2024-05-04T20:15:00"); // Base time for the first message
     //   baseTime.setMinutes(baseTime.getMinutes() + i); // Increment minutes by the index
@@ -74,7 +75,7 @@ export default function MessagesframePage() {
     //   const formattedTime = baseTime.toTimeString().substring(0, 5); // Format to "HH:MM"
 
     //   return {
-    //     content: `Message ${i + 1}: Content of the message here.`,
+    //     content: Message ${i + 1}: Content of the message here.,
     //     timestamp: formattedTime,
     //     outgoing: i % 2 === 0,
     //   };
@@ -82,17 +83,25 @@ export default function MessagesframePage() {
     // setMessages(initialMessages);
   }, []);
 
-  const handleSendMessage = () => {
+ const handleSendMessage = async () => {
     if (newMessage.trim() !== "") {
-      const baseTime = new Date();
-      const formattedTime = baseTime.toTimeString().substring(0, 5); // Format to "HH:MM"
       const message = {
         content: newMessage,
-        timestamp: formattedTime,
-        outgoing: true,
       };
-      setMessages([...messages, message]);
-      setNewMessage(""); // Clear the input field
+
+      try {
+        const response = await axios.post(
+         ' http://localhost:8800/api/rooms/${roomId}/messages',
+          message,
+          {
+            withCredentials: true,
+          }
+        );
+        setMessages([...messages, response.data]);
+        setNewMessage(""); // Clear the input field
+      } catch (err) {
+        console.error("Failed to send message", err);
+      }
     }
   };
 
@@ -122,8 +131,7 @@ export default function MessagesframePage() {
 
       <div className="flex flex-col h-screen w-full ">
         <Header className="bg-gradient" />
-
-        <div
+<div
           className="flex flex-col flex-grow mx-auto w-[97%] md:w-full md:p-5"
           style={{ marginTop: "20px" }}
         >
