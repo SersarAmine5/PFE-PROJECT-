@@ -40,7 +40,7 @@ export default function Header({ ...props }) {
     >
       <div className="mx-auto flex w-full max-w-[1415px] items-center justify-between  sm:flex-col">
         <Img
-          src="images/img_image_removebg_preview.png"
+          src="/images/img_image_removebg_preview.png"
           alt="background image"
           className="h-[60px] w-[14%] object-cover sm:w-full m-[10px]"
         />

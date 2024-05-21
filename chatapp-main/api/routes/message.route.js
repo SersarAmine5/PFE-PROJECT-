@@ -20,9 +20,9 @@ const router = express.Router();
 
 // create endpoint to fetch messages
 
-router.post("/messages", verifyToken, createMessage);
+router.post("/messages", createMessage);
 router.get("/messages/:id", verifyToken, getMessage);
-router.get("/messages/:id", verifyToken, getMessages);
+router.get("/messages", verifyToken, getMessages);
 router.delete("/messages/:id", verifyToken, deleteMessage);
 router.post("/messages/:id/upvote", verifyToken, upvoteMessage);
 router.post("/messages/:id/downvote", verifyToken, downvoteMessage);

@@ -41,7 +41,7 @@ export default function TopicsframePage() {
 
   const handleTopicClick = (topicId) => {
     localStorage.setItem("selectedTopicId", topicId);
-    navigate("/rooms/" + topicId); // Utiliser navigate à la place de history.push
+    navigate("/topics/" + topicId); 
   };
 
   return (

@@ -25,7 +25,7 @@ export default function MessagesframePage() {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
-
+ 
   useEffect(() => {
     const fetchRoom = async () => {
       try {
@@ -65,7 +65,7 @@ export default function MessagesframePage() {
       }
     };
 
-    fetchMessages();
+    // fetchMessages();
     fetchRoom();
     // const initialMessages = Array.from({ length: 20 }, (_, i) => {
     //   const baseTime = new Date("2024-05-04T20:15:00"); // Base time for the first message
