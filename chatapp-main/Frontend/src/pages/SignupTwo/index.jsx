@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet";
 import { Button, Heading, Img } from "../../components";
 import axios from "axios"; // Importez axios pour les requêtes HTTP
 import { useUserContext } from "contexts/user.context";
+import { useNavigate } from "react-router-dom";
 
 const data = [
   {
@@ -10,14 +11,13 @@ const data = [
     dynamicproperty2: "Astrophysique",
     dynamicproperty3: "Biologie moléculaire",
     dynamicproperty4: "Changement climatique",
-    
   },
   {
     dynamicproperty1: "Intelligence artificielle",
     dynamicproperty2: "Nanotechnologie",
     dynamicproperty3: "Neurosciences",
     dynamicproperty4: "Biotechnologie",
-    dynamicproperty5: "Énergie renouvelable"
+    dynamicproperty5: "Énergie renouvelable",
   },
 ];
 
@@ -25,6 +25,8 @@ export default function SignupTwoPage() {
   const [selectedTags, setSelectedTags] = useState([]);
 
   const { user } = useUserContext();
+
+  const navigate = useNavigate();
 
   const handleSelectTag = (tag) => {
     const currentIndex = selectedTags.indexOf(tag);
@@ -57,14 +59,16 @@ export default function SignupTwoPage() {
         `http://localhost:8800/api/users/${userId}/interests`,
         {
           center_of_interest: selectedTags,
-        }
+        },
       );
       console.log("Réponse du serveur:", response.data);
       alert("Centres d'intérêt enregistrés avec succès!");
+
+      navigate("/signupthree");
     } catch (error) {
       console.error(
         "Erreur lors de l'enregistrement des centres d'intérêt:",
-        error.response ? error.response.data : error.message
+        error.response ? error.response.data : error.message,
       );
       alert("Erreur lors de l'enregistrement des centres d'intérêt");
     }
@@ -87,7 +91,8 @@ export default function SignupTwoPage() {
         />
       </div>
       <div className="flex w-full flex-col items-center gap-16 bg-white pb-73px md:pb-5">
-        <div className="flex justify-center self-stretch bg-gradient pb-19px pt-18px"></div>
+        <div className="flex justify-center self-stretch bg-gradient pb-19px pt-18px">
+        </div>
         <div className="container-xs flex justify-center rounded bg-blue_gray-200_a5 px-35px pb-8 pt-25px shadow-sm">
           <div className="flex w-full flex-col items-center">
             <Heading as="h1" className="text-5xl text-indigo-900 m-4">
@@ -108,7 +113,8 @@ export default function SignupTwoPage() {
                       <input
                         type="checkbox"
                         checked={selectedTags.includes(tag)}
-                        onChange={() => handleSelectTag(tag)}
+                        onChange={() =>
+                          handleSelectTag(tag)}
                         className="accent-indigo-900"
                       />
                       <span className="checkmark"></span>
@@ -131,7 +137,8 @@ export default function SignupTwoPage() {
           </div>
         </div>
       </div>
-      <style jsx>{`
+      <style jsx>
+        {`
         .checkbox-container {
           display: block;
           position: relative;
@@ -180,7 +187,8 @@ export default function SignupTwoPage() {
           border-width: 0 3px 3px 0;
           transform: rotate(45deg);
         }
-      `}</style>
+      `}
+      </style>
     </>
   );
 }

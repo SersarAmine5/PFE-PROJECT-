@@ -1,12 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet";
 import Header from "../../components/Header";
-import { Img, Input, Text, Heading, Button } from "../../components";
-import { useParams, useNavigate } from "react-router-dom";
+import { Button, Heading, Img, Input, Text } from "../../components";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import { useUserContext } from "contexts/user.context";
 
 export default function MessagesframePage() {
   const messagesEndRef = useRef(null);
+
+  const { user } = useUserContext();
 
   const [newMessage, setNewMessage] = useState("");
 
@@ -30,10 +33,10 @@ export default function MessagesframePage() {
     const fetchRoom = async () => {
       try {
         const response = await axios.get(
-          'http://localhost:8800/api/rooms/${roomId}',
+          `http://localhost:8800/api/rooms/${roomId}`,
           {
             withCredentials: true,
-          }
+          },
         );
 
         setRoom(response.data);
@@ -49,10 +52,10 @@ export default function MessagesframePage() {
     const fetchMessages = async () => {
       try {
         const response = await axios.get(
-          'http://localhost:8800/api/rooms/${roomId}/messages',
+          `http://localhost:8800/api/rooms/${roomId}/messages`,
           {
             withCredentials: true,
-          }
+          },
         );
 
         setMessages(response.data);
@@ -63,61 +66,57 @@ export default function MessagesframePage() {
         setMessagesError("Something went wrong!");
         setIsMessagesLoading(false);
       }
-     fetchRoom();
-    fetchMessages();
     };
 
-
-    // const initialMessages = Array.from({ length: 20 }, (_, i) => {
-    //   const baseTime = new Date("2024-05-04T20:15:00"); // Base time for the first message
-    //   baseTime.setMinutes(baseTime.getMinutes() + i); // Increment minutes by the index
-
-    //   const formattedTime = baseTime.toTimeString().substring(0, 5); // Format to "HH:MM"
-
-    //   return {
-    //     content: Message ${i + 1}: Content of the message here.,
-    //     timestamp: formattedTime,
-    //     outgoing: i % 2 === 0,
-    //   };
-    // });
-    // setMessages(initialMessages);
+    fetchRoom();
+    fetchMessages();
   }, []);
 
- const handleSendMessage = async () => {
+  const handleSendMessage = async () => {
+    if (!user) {
+      return alert("Login to send messages.");
+    }
+
     if (newMessage.trim() !== "") {
       const message = {
-        content: newMessage,
+        contenu: newMessage,
+        date_heure_envoie: new Date(),
+        userId: user._id,
+        roomID: roomId,
       };
 
       try {
         const response = await axios.post(
-         ' http://localhost:8800/api/rooms/${roomId}/messages',
+          `http://localhost:8800/api/messages/messages`,
           message,
           {
             withCredentials: true,
-          }
+          },
         );
+
         setMessages([...messages, response.data]);
-        setNewMessage(""); // Clear the input field
+        setNewMessage("");
       } catch (err) {
         console.error("Failed to send message", err);
       }
     }
   };
 
-  if (isRoomLoading)
+  if (isRoomLoading || isMessagesLoading) {
     return (
       <div>
         <div>Data is Loading..</div>
       </div>
     );
+  }
 
-  if (roomError)
+  if (roomError || messagesError) {
     return (
       <div>
-        <div>Eror fetchinf data.</div>
+        <div>Error fetching data.</div>
       </div>
     );
+  }
 
   return (
     <>
@@ -131,7 +130,7 @@ export default function MessagesframePage() {
 
       <div className="flex flex-col h-screen w-full ">
         <Header className="bg-gradient" />
-<div
+        <div
           className="flex flex-col flex-grow mx-auto w-[97%] md:w-full md:p-5"
           style={{ marginTop: "20px" }}
         >
@@ -141,7 +140,7 @@ export default function MessagesframePage() {
             </Button>
             <div className="flex flex-1 items-start justify-center bg-white-A700 px-2 pt-2 rounded-lg shadow-sm md:w-full">
               <Img
-                src="images/img_room_pic.png"
+                src="/images/img_room_pic.png"
                 alt="room image"
                 className="h-14 w-1/20 object-cover md:w-full ml-[-80]"
               />
@@ -157,7 +156,7 @@ export default function MessagesframePage() {
               </div>
             </div>
             <Img
-              src="images/img_rewind.svg"
+              src="/images/img_rewind.svg"
               alt="rewind icon"
               className="h-8 md:w-full"
             />
@@ -188,15 +187,17 @@ export default function MessagesframePage() {
               <div
                 key={index}
                 className={`flex ${
-                  msg.outgoing ? "justify-end" : "justify-start"
+                  msg.userId === user?._id ? "justify-end" : "justify-start"
                 } my-2`}
               >
                 <div
                   className={`flex flex-col gap-y-1 max-w-[80%] p-3 rounded-lg shadow-md ${
-                    msg.outgoing ? "bg-blue-500 mr-4" : "bg-gray-400 ml-4"
+                    msg.userId === user?._id
+                      ? "bg-blue-500 mr-4"
+                      : "bg-gray-400 ml-4"
                   }`}
                 >
-                  <Text className="text-white break-words">{msg.content}</Text>
+                  <Text className="text-white break-words">{msg.contenu}</Text>
                   <Text size="xs" className="text-white self-end">
                     {msg.timestamp}
                   </Text>
@@ -217,7 +218,7 @@ export default function MessagesframePage() {
               placeholder="Start typing your message..."
               prefix={
                 <Img
-                  src="images/img_clock.svg"
+                  src="/images/img_clock.svg"
                   alt="clock"
                   className="h-5 w-7 mr-2"
                 />
@@ -230,7 +231,7 @@ export default function MessagesframePage() {
               className="bg-blue-500 rounded-lg p-2"
               onClick={handleSendMessage}
             >
-              <Img src="images/img_send_2.png" alt="send" className="h-5" />
+              <Img src="/images/img_send_2.png" alt="send" className="h-5" />
             </Button>
           </div>
         </div>

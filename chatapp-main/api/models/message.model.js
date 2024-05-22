@@ -2,10 +2,6 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 const messageSchema = new Schema(
   {
-    messageId: {
-      type: String,
-      required: true,
-    },
     contenu: {
       type: String,
       required: true,

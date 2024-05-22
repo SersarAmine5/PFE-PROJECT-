@@ -1,8 +1,18 @@
- 
- import Room from "../models/room.model.js";
+import Room from "../models/room.model.js";
 import Topic from "../models/topic.model.js"; // Assurez-vous d'importer correctement le modèle Topic
 import createError from "../utils/createError.js";
 import User from "../models/user.model.js";
+import Message from "../models/message.model.js";
+
+export const getRoomMessages = async (req, res, next) => {
+  try {
+    const messages = await Message.find({ roomID: req.params.id });
+
+    res.status(200).json(messages);
+  } catch (error) {
+    next(error);
+  }
+};
 
 // Fonctions de gestion des endpoints de room
 export const deleteRoom = async (req, res, next) => {
@@ -16,7 +26,7 @@ export const deleteRoom = async (req, res, next) => {
     if (req.user.id !== room.roomCreator.toString()) {
       return next(createError(403, "You can delete only your room!"));
     }
-    
+
     await Room.findByIdAndDelete(req.params.id);
     res.status(200).send("deleted.");
   } catch (error) {
@@ -57,9 +67,13 @@ export const updateRoom = async (req, res, next) => {
       return next(createError(403, "You can only modify your own room!"));
     }
 
-    const updatedRoom = await Room.findByIdAndUpdate(req.params.id, {
-      $set: req.body,
-    }, { new: true });
+    const updatedRoom = await Room.findByIdAndUpdate(
+      req.params.id,
+      {
+        $set: req.body,
+      },
+      { new: true }
+    );
 
     res.status(200).send(updatedRoom);
   } catch (error) {
@@ -70,7 +84,10 @@ export const updateRoom = async (req, res, next) => {
 export const approveRoom = async (req, res, next) => {
   try {
     // only an expert user can approve a room
-    if (req.user.role !== "expert" || !req.user.topic_subscribed_at.includes(req.params.id)) {
+    if (
+      req.user.role !== "expert" ||
+      !req.user.topic_subscribed_at.includes(req.params.id)
+    ) {
       return next(createError(403, "Only expert users can approve rooms!"));
     }
 
@@ -89,15 +106,30 @@ export const approveRoom = async (req, res, next) => {
 
 export const createRoom = async (req, res, next) => {
   try {
-    const { roomId, title, initialProblem, roomCreator, topicId, userId } = req.body;
+    const { roomId, title, initialProblem, roomCreator, topicId, userId } =
+      req.body;
 
     // Vérifiez si tous les champs requis sont présents
-    if (!roomId || !title || !initialProblem || !roomCreator || !topicId || !userId) {
-      return res.status(400).send({ message: 'All fields are required.' });
+    if (
+      !roomId ||
+      !title ||
+      !initialProblem ||
+      !roomCreator ||
+      !topicId ||
+      !userId
+    ) {
+      return res.status(400).send({ message: "All fields are required." });
     }
 
     // Créez un nouveau room avec les données de la requête
-    const room = new Room({ roomId, title, initialProblem, roomCreator, topicId, userId });
+    const room = new Room({
+      roomId,
+      title,
+      initialProblem,
+      roomCreator,
+      topicId,
+      userId,
+    });
 
     // Sauvegardez le room dans la base de données
     await room.save();
@@ -107,7 +139,7 @@ export const createRoom = async (req, res, next) => {
 
     res.status(201).send(room);
   } catch (error) {
-    res.status(500).send({ message: 'Error creating room', error });
+    res.status(500).send({ message: "Error creating room", error });
   }
 };
 
