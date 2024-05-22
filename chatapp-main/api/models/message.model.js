@@ -14,6 +14,7 @@ const messageSchema = new Schema(
     userId: {
       type: String,
       required: true,
+      ref: "user"
     },
     roomID: {
       type: String,

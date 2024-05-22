@@ -1,6 +1,5 @@
 import React from "react";
 import { Button, Img } from "..";
-
 export default function Header({ ...props }) {
   return (
     <header

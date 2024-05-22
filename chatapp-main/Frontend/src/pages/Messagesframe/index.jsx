@@ -36,7 +36,7 @@ export default function MessagesframePage() {
           `http://localhost:8800/api/rooms/${roomId}`,
           {
             withCredentials: true,
-          },
+          }
         );
 
         setRoom(response.data);
@@ -55,7 +55,7 @@ export default function MessagesframePage() {
           `http://localhost:8800/api/rooms/${roomId}/messages`,
           {
             withCredentials: true,
-          },
+          }
         );
 
         setMessages(response.data);
@@ -70,9 +70,11 @@ export default function MessagesframePage() {
 
     fetchRoom();
     fetchMessages();
-  }, []);
+  }, [roomId]);
 
-  const handleSendMessage = async () => {
+  const handleSendMessage = async (event) => {
+    event.preventDefault();
+
     if (!user) {
       return alert("Login to send messages.");
     }
@@ -82,6 +84,7 @@ export default function MessagesframePage() {
         contenu: newMessage,
         date_heure_envoie: new Date(),
         userId: user._id,
+        userName: user.firstname, // Ajout du nom de l'utilisateur
         roomID: roomId,
       };
 
@@ -91,7 +94,7 @@ export default function MessagesframePage() {
           message,
           {
             withCredentials: true,
-          },
+          }
         );
 
         setMessages([...messages, response.data]);
@@ -100,6 +103,13 @@ export default function MessagesframePage() {
         console.error("Failed to send message", err);
       }
     }
+  };
+
+  const formatTime = (dateString) => {
+    const date = new Date(dateString);
+    const hours = date.getHours().toString().padStart(2, "0");
+    const minutes = date.getMinutes().toString().padStart(2, "0");
+    return `${hours}:${minutes}`;
   };
 
   if (isRoomLoading || isMessagesLoading) {
@@ -128,7 +138,7 @@ export default function MessagesframePage() {
         />
       </Helmet>
 
-      <div className="flex flex-col h-screen w-full ">
+      <div className="flex flex-col h-screen w-full">
         <Header className="bg-gradient" />
         <div
           className="flex flex-col flex-grow mx-auto w-[97%] md:w-full md:p-5"
@@ -139,16 +149,11 @@ export default function MessagesframePage() {
               Rooms
             </Button>
             <div className="flex flex-1 items-start justify-center bg-white-A700 px-2 pt-2 rounded-lg shadow-sm md:w-full">
-              <Img
-                src="/images/img_room_pic.png"
-                alt="room image"
-                className="h-14 w-1/20 object-cover md:w-full ml-[-80]"
-              />
               <div className="flex flex-col w-11/12 md:w-full">
                 <div className="flex justify-between items-start gap-x-6 ml-[80]">
                   <Heading
                     size="s"
-                    className="mb-2 text-gray-900 tracking-tight"
+                    className="ml-[500px] mb-2 text-gray-900 tracking-tight"
                   >
                     {room.title}
                   </Heading>
@@ -187,19 +192,22 @@ export default function MessagesframePage() {
               <div
                 key={index}
                 className={`flex ${
-                  msg.userId === user?._id ? "justify-end" : "justify-start"
+                  msg.userId._id === user?._id ? "justify-end" : "justify-start"
                 } my-2`}
               >
                 <div
                   className={`flex flex-col gap-y-1 max-w-[80%] p-3 rounded-lg shadow-md ${
-                    msg.userId === user?._id
+                      msg.userId._id === user?._id
                       ? "bg-blue-500 mr-4"
                       : "bg-gray-400 ml-4"
                   }`}
                 >
+                  <Text className="text-white font-bold">
+                    {msg.userId.lastname + " " + msg.userId.firstname}
+                  </Text>
                   <Text className="text-white break-words">{msg.contenu}</Text>
                   <Text size="xs" className="text-white self-end">
-                    {msg.timestamp}
+                    {formatTime(msg.date_heure_envoie)}
                   </Text>
                 </div>
               </div>
@@ -209,7 +217,10 @@ export default function MessagesframePage() {
         </div>
 
         <div className="fixed bottom-0 left-0 right-0 bg-white px-4 py-2 shadow-md">
-          <div className="flex items-center gap-3">
+          <form
+            onSubmit={handleSendMessage}
+            className="flex items-center gap-3"
+          >
             <Input
               color="gray_100"
               size="md"
@@ -227,13 +238,10 @@ export default function MessagesframePage() {
               onChange={(e) => setNewMessage(e.target.value)}
               className="flex-grow rounded-md py-2 px-4 bg-gray-100 text-gray-900"
             />
-            <Button
-              className="bg-blue-500 rounded-lg p-2"
-              onClick={handleSendMessage}
-            >
+            <Button className="bg-blue-500 rounded-lg p-2">
               <Img src="/images/img_send_2.png" alt="send" className="h-5" />
             </Button>
-          </div>
+          </form>
         </div>
       </div>
     </>

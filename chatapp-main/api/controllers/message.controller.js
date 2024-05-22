@@ -6,7 +6,8 @@ import createError from "../utils/createError.js";
 export const createMessage = async (req, res, next) => {
   const message = new Message(req.body);
   await message.save();
-  res.status(201).send(message);
+  const createdMessage = await Message.findById(message._id).populate("userId");
+  res.status(201).send(createdMessage);
 };
 
 export const getMessage = async (req, res, next) => {

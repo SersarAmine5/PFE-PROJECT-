@@ -6,7 +6,7 @@ import Message from "../models/message.model.js";
 
 export const getRoomMessages = async (req, res, next) => {
   try {
-    const messages = await Message.find({ roomID: req.params.id });
+    const messages = await Message.find({ roomID: req.params.id }).populate("userId");
 
     res.status(200).json(messages);
   } catch (error) {
