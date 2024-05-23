@@ -6,6 +6,10 @@ import { useUserContext } from "../../contexts/user.context";
 import { Button, Heading, Img, Input, Text } from "../../components";
 
 export default function LoginPage() {
+  const handleSignUpClick = () => {
+    window.location.href = '/signupone';
+  };
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -52,7 +56,8 @@ export default function LoginPage() {
               </Heading>
               <Text size="xs" as="p" className="mt-4 text-gray-700">
                 <span>New to Headspace?</span>
-                <a href="#" className="text-blue-500">
+                <a href="#" className="text-blue-500"
+                onClick={handleSignUpClick}>
                   Sign up for free
                 </a>
               </Text>

@@ -13,6 +13,10 @@ const dropDownOptions = [
 ];
 
 export default function SignupOne() {
+  const handleloginClick = () =>{
+    window.location.href = '/login';
+  }
+  
   const [formData, setFormData] = useState({
     firstname: "",
     lastname: "",
@@ -189,7 +193,8 @@ export default function SignupOne() {
               </form>
               <Text size="md" as="p" className="mt-4 text-center">
                 Vous avez déjà un compte ?{" "}
-                <Link to="/login" className="text-blue-400 cursor-pointer">
+                <Link to="/login" className="text-blue-400 cursor-pointer"
+                onClick={handleloginClick}>
                   Se connecter
                 </Link>
               </Text>

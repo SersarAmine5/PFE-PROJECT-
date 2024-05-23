@@ -1,6 +1,13 @@
 import React from "react";
 import { Button, Img } from "..";
 export default function Header({ ...props }) {
+  const handleloginClick = () =>{
+    window.location.href = '/login';
+  }
+
+  const handleSignUpClick = () => {
+    window.location.href = '/signupone';
+  };
   return (
     <header
       {...props}
@@ -17,6 +24,7 @@ export default function Header({ ...props }) {
             size="sm"
             shape="round"
             className="min-w-[155px] font-poppins font-medium bg-white-A700 text-indigo-900 shadow-xs sm:px-5 bg-white hover:bg-gray-300 hover:text-white transition-colors"
+            onClick={handleSignUpClick}
           >
             Sign up
           </Button>
@@ -24,6 +32,7 @@ export default function Header({ ...props }) {
             size="sm"
             shape="round"
             className="min-w-[155px] font-poppins font-medium bg-white-A700 text-indigo-900 shadow-xs sm:px-5 bg-white hover:bg-gray-300 hover:text-white transition-colors"
+            onClick={handleloginClick}
           >
             Log in
           </Button>

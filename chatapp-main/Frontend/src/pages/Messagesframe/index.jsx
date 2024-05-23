@@ -8,7 +8,7 @@ import { useUserContext } from "contexts/user.context";
 
 export default function MessagesframePage() {
   const messagesEndRef = useRef(null);
-
+  const navigate = useNavigate(); // Ajout de useNavigate
   const { user } = useUserContext();
 
   const [newMessage, setNewMessage] = useState("");
@@ -26,7 +26,10 @@ export default function MessagesframePage() {
   console.log("[params]:", topicId, roomId);
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    const scrollToBottom = () => {
+      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    };
+    scrollToBottom();
   }, [messages]);
 
   useEffect(() => {
@@ -145,12 +148,15 @@ export default function MessagesframePage() {
           style={{ marginTop: "20px" }}
         >
           <div className="flex items-center gap-x-4 w-full md:flex-col">
-            <Button className="min-w-[88px] rounded-full bg-gray-300 font-extrabold py-2 px-4">
-              Rooms
+            <Button
+              className="min-w-[88px] rounded-full bg-gray-300 font-extrabold py-2 px-4"
+              onClick={() => navigate(-1)} // Ajout de la redirection en arrière
+            >
+              Retour
             </Button>
             <div className="flex flex-1 items-start justify-center bg-white-A700 px-2 pt-2 rounded-lg shadow-sm md:w-full">
               <div className="flex flex-col w-11/12 md:w-full">
-                <div className="flex justify-between items-start gap-x-6 ml-[80]">
+                <div className="flex justify-between items-start ">
                   <Heading
                     size="s"
                     className="ml-[500px] mb-2 text-gray-900 tracking-tight"
@@ -160,11 +166,6 @@ export default function MessagesframePage() {
                 </div>
               </div>
             </div>
-            <Img
-              src="/images/img_rewind.svg"
-              alt="rewind icon"
-              className="h-8 md:w-full"
-            />
           </div>
 
           <div
@@ -182,9 +183,9 @@ export default function MessagesframePage() {
                 display: none;
               }
 
-              /* Hide scrollbar for IE, Edge and Firefox */
+              /* Hide scrollbar for IE, Edge et Firefox */
               .w-full {
-                -ms-overflow-style: none;  /* IE and Edge */
+                -ms-overflow-style: none;  /* IE et Edge */
                 scrollbar-width: none;  /* Firefox */
               }`}
             </style>
@@ -197,16 +198,17 @@ export default function MessagesframePage() {
               >
                 <div
                   className={`flex flex-col gap-y-1 max-w-[80%] p-3 rounded-lg shadow-md ${
-                      msg.userId._id === user?._id
-                      ? "bg-blue-500 mr-4"
+                    msg.userId._id === user?._id
+                      ? "bg-blue-500  mr-4"
                       : "bg-gray-400 ml-4"
                   }`}
                 >
-                  <Text className="text-white font-bold">
+                  <Text className="text-white-A700 font-extrabold text-xl">
                     {msg.userId.lastname + " " + msg.userId.firstname}
                   </Text>
-                  <Text className="text-white break-words">{msg.contenu}</Text>
-                  <Text size="xs" className="text-white self-end">
+
+                  <Text className="text-white-A700 break-words">{msg.contenu}</Text>
+                  <Text size="xs" className="text-white-A700 self-end">
                     {formatTime(msg.date_heure_envoie)}
                   </Text>
                 </div>

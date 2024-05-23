@@ -12,7 +12,8 @@ module.exports = {
           50: "#f9f9f9",
           100: "#f1f1f7",
           300: "#dfdfdf",
-          400: "#bababa",
+          400: "#595D60",
+          600: "595D60",
           900: "#19191a",
           "50_01": "#f7f7fd",
           "900_01": "#000929",
@@ -48,9 +49,14 @@ module.exports = {
         raleway: "Raleway",
         inter: "Inter",
       },
+      // Ajout des utilitaires personnalisés
+      fontWeight: {
+        bold: '700', // Vous pouvez ajuster la valeur si nécessaire
+      },
     },
   },
-  plugins: [require("@tailwindcss/forms"),
-  
-    require('tailwind-scrollbar-hide')
-  ],}
+  plugins: [
+    require("@tailwindcss/forms"),
+    require('tailwind-scrollbar-hide'),
+  ],
+}
