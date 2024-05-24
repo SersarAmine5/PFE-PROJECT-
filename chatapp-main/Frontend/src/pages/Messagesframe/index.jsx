@@ -23,7 +23,24 @@ export default function MessagesframePage() {
 
   const { topicId, roomId } = useParams();
 
-  console.log("[params]:", topicId, roomId);
+  console.log("[params]: here", topicId, roomId);
+
+  const handleDeleteRoom = async () => {
+    try {
+      if (!roomId || !topicId) {
+        throw new Error("Invalid roomId or topicId");
+      }
+      await axios.delete(`http://localhost:8800/api/rooms/topics/${topicId}/${roomId}`, {
+        withCredentials: true,
+      });
+      setRoom(null);
+      navigate(`/topics/${topicId}`);
+    } catch (error) {
+      console.error('Failed to delete room:', error);
+      navigate(-1);
+    }
+  };
+
 
   useEffect(() => {
     const scrollToBottom = () => {
@@ -149,12 +166,22 @@ export default function MessagesframePage() {
         >
           <div className="flex items-center gap-x-4 w-full md:flex-col">
             <Button
+              size="xs"
               className="min-w-[88px] rounded-full bg-gray-300 font-extrabold py-2 px-4"
               onClick={() => navigate(-1)} // Ajout de la redirection en arrière
             >
               Retour
             </Button>
-            <div className="flex flex-1 items-start justify-center bg-white-A700 px-2 pt-2 rounded-lg shadow-sm md:w-full">
+            {user.role === "utilisateur expert" && (
+              <Button
+                size="xs"
+                className="min-w-[88px] rounded-full bg-gray-300 font-extrabold py-2 px-4"
+                onClick={handleDeleteRoom}
+              >
+                supprimer
+              </Button>
+            )}
+            {/* <div className="flex flex-1 items-start justify-center bg-white-A700 px-2 pt-2 rounded-lg shadow-sm md:w-full">
               <div className="flex flex-col w-11/12 md:w-full">
                 <div className="flex justify-between items-start ">
                   <Heading
@@ -165,6 +192,14 @@ export default function MessagesframePage() {
                   </Heading>
                 </div>
               </div>
+            </div> */}
+            <div className="flex flex-1 items-start justify-center bg-white-A700 px-2 pt-2 rounded-lg shadow-sm md:w-full">
+              <Heading
+                size="s"
+                className="mb-2 text-gray-900 tracking-tight"
+              >
+                {room.title}
+              </Heading>
             </div>
           </div>
 
@@ -192,16 +227,14 @@ export default function MessagesframePage() {
             {messages.map((msg, index) => (
               <div
                 key={index}
-                className={`flex ${
-                  msg.userId._id === user?._id ? "justify-end" : "justify-start"
-                } my-2`}
+                className={`flex ${msg.userId._id === user?._id ? "justify-end" : "justify-start"
+                  } my-2`}
               >
                 <div
-                  className={`flex flex-col gap-y-1 max-w-[80%] p-3 rounded-lg shadow-md ${
-                    msg.userId._id === user?._id
-                      ? "bg-blue-500  mr-4"
-                      : "bg-gray-400 ml-4"
-                  }`}
+                  className={`flex flex-col gap-y-1 max-w-[80%] p-3 rounded-lg shadow-md ${msg.userId._id === user?._id
+                    ? "bg-blue-500  mr-4"
+                    : "bg-gray-400 ml-4"
+                    }`}
                 >
                   <Text className="text-white-A700 font-extrabold text-xl">
                     {msg.userId.lastname + " " + msg.userId.firstname}
@@ -245,7 +278,7 @@ export default function MessagesframePage() {
             </Button>
           </form>
         </div>
-      </div>
+      </div >
     </>
   );
 }

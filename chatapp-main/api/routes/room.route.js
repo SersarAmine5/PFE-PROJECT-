@@ -8,16 +8,16 @@ import {
   updateRoom,
   getRoomMessages,
 } from "../controllers/room.controller.js";
-import { verifyToken } from "../middleware/jwt.js";
+import { verifyToken, checkIfUserIsExpert } from "../middleware/jwt.js";
 
 const router = express.Router();
 
-router.delete("/:id", deleteRoom);
+router.delete("/topics/:topicId/:roomId",deleteRoom);
 router.get("/:id", verifyToken, getRoom);
 router.get("/:id/messages", getRoomMessages);
 router.get("/", getRooms);
 
-router.post("/create", createRoom);
+router.post("/topics/:topicId/new", createRoom);
 router.post("/:id/approve", approveRoom);
 
 router.put("/:id", updateRoom);

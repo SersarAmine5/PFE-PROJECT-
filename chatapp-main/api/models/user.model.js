@@ -45,22 +45,22 @@ const userSchema = new Schema(
       enum: ["user", "admin", "moderator", "utilisateur expert"],
       default: "user",
     },
-    topic_subscribed_at: [
-      {
-        topic_id: {
-          type: Schema.Types.ObjectId,
-          ref: "Topic",
-        },
-        is_expert: {
-          type: Boolean,
-          default: false,
-        },
-        subscribed_at: {
-          type: Date,
-          default: () => Date.now(),
-        },
-      },
-    ],
+    // topic_subscribed_at: [
+    //   {
+    //     topic_id: {
+    //       type: Schema.Types.ObjectId,
+    //       ref: "Topic",
+    //     },
+    //     is_expert: {
+    //       type: Boolean,
+    //       default: false,
+    //     },
+    //     subscribed_at: {
+    //       type: Date,
+    //       default: () => Date.now(),
+    //     },
+    //   },
+    // ],
     center_of_interest: {
       type: [String],
       required: false,

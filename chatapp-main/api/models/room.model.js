@@ -5,17 +5,13 @@ const RoomSchema = new Schema(
   {
     roomId: {
       type: String,
-      required: true,
+      required: false,
     },
     title: {
       type: String,
       required: true,
     },
     initialProblem: {
-      type: String,
-      required: true,
-    },
-    roomCreator: {
       type: String,
       required: true,
     },
@@ -26,7 +22,7 @@ const RoomSchema = new Schema(
     },
     userId: {
       type: String,
-      required: true,
+      required: false,
     },
     participants: [
       {

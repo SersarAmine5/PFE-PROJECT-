@@ -18,7 +18,7 @@ const ProjectRoutes = () => {
     { path: "*", element: <NotFound /> },
     { path: "/topics/:topicId", element: <Roomsframe /> },
     // { path: "createnewroom", element: <Createnewroom /> },
-    { path: "/topics/:topicsId/new", element: <Createnewroom /> },
+    { path: "/topics/:topicId/new", element: <Createnewroom /> },
     { path: "hompage", element: <Hompage /> },
     { path: "signupone", element: <SignupOne /> },
     { path: "signuptwo", element: <SignupTwo /> },

@@ -14,25 +14,31 @@ export const getRoomMessages = async (req, res, next) => {
   }
 };
 
+export const createRoom = async (req, res, next) => {
+  const room = new Room(req.body);
+  await room.save();
+  const createdRoom = await Room.findById(room._id).populate("userId");
+  res.status(201).send(createdRoom);
+};
+
 // Fonctions de gestion des endpoints de room
 export const deleteRoom = async (req, res, next) => {
   try {
-    const room = await Room.findById(req.params.id);
+    const { topicId, roomId } = req.params;
+    const room = await Room.findOne({ roomId: req.params.id });
 
     if (!room) {
       return next(createError(404, "Room not found!"));
     }
 
-    if (req.user.id !== room.roomCreator.toString()) {
-      return next(createError(403, "You can delete only your room!"));
-    }
-
-    await Room.findByIdAndDelete(req.params.id);
+    await Room.findByIdAndDelete(roomId);
     res.status(200).send("deleted.");
   } catch (error) {
+    console.error(error); // Log de l'erreur pour le diagnostic
     next(error);
   }
 };
+
 
 export const getRoom = async (req, res, next) => {
   try {
@@ -55,92 +61,55 @@ export const getRooms = async (req, res, next) => {
   }
 };
 
-export const updateRoom = async (req, res, next) => {
-  try {
-    const room = await Room.findById(req.params.id);
+// export const updateRoom = async (req, res, next) => {
+//   try {
+//     const room = await Room.findById(req.params.id);
 
-    if (!room) {
-      return next(createError(404, "Room not found!"));
-    }
+//     if (!room) {
+//       return next(createError(404, "Room not found!"));
+//     }
 
-    if (req.user.id !== room.roomCreator.toString()) {
-      return next(createError(403, "You can only modify your own room!"));
-    }
+//     if (req.user.id !== room.roomCreator.toString()) {
+//       return next(createError(403, "You can only modify your own room!"));
+//     }
 
-    const updatedRoom = await Room.findByIdAndUpdate(
-      req.params.id,
-      {
-        $set: req.body,
-      },
-      { new: true }
-    );
+//     const updatedRoom = await Room.findByIdAndUpdate(
+//       req.params.id,
+//       {
+//         $set: req.body,
+//       },
+//       { new: true }
+//     );
 
-    res.status(200).send(updatedRoom);
-  } catch (error) {
-    next(error);
-  }
-};
+//     res.status(200).send(updatedRoom);
+//   } catch (error) {
+//     next(error);
+//   }
+// };
 
-export const approveRoom = async (req, res, next) => {
-  try {
-    // only an expert user can approve a room
-    if (
-      req.user.role !== "expert" ||
-      !req.user.topic_subscribed_at.includes(req.params.id)
-    ) {
-      return next(createError(403, "Only expert users can approve rooms!"));
-    }
+// export const approveRoom = async (req, res, next) => {
+//   try {
+//     // only an expert user can approve a room
+//     if (
+//       req.user.role !== "expert" ||
+//       !req.user.topic_subscribed_at.includes(req.params.id)
+//     ) {
+//       return next(createError(403, "Only expert users can approve rooms!"));
+//     }
 
-    const room = await Room.findById(req.params.id);
-    if (!room) {
-      return next(createError(404, "Room not found!"));
-    }
+//     const room = await Room.findById(req.params.id);
+//     if (!room) {
+//       return next(createError(404, "Room not found!"));
+//     }
 
-    room.approved = true;
-    await room.save();
-    res.status(200).send(room);
-  } catch (error) {
-    next(error);
-  }
-};
+//     room.approved = true;
+//     await room.save();
+//     res.status(200).send(room);
+//   } catch (error) {
+//     next(error);
+//   }
+// };
 
-export const createRoom = async (req, res, next) => {
-  try {
-    const { roomId, title, initialProblem, roomCreator, topicId, userId } =
-      req.body;
 
-    // Vérifiez si tous les champs requis sont présents
-    if (
-      !roomId ||
-      !title ||
-      !initialProblem ||
-      !roomCreator ||
-      !topicId ||
-      !userId
-    ) {
-      return res.status(400).send({ message: "All fields are required." });
-    }
 
-    // Créez un nouveau room avec les données de la requête
-    const room = new Room({
-      roomId,
-      title,
-      initialProblem,
-      roomCreator,
-      topicId,
-      userId,
-    });
-
-    // Sauvegardez le room dans la base de données
-    await room.save();
-
-    // Mettre à jour le topic correspondant pour inclure le nouvel ID de chambre
-    await Topic.findByIdAndUpdate(topicId, { $push: { rooms: room._id } });
-
-    res.status(201).send(room);
-  } catch (error) {
-    res.status(500).send({ message: "Error creating room", error });
-  }
-};
-
-// Les autres fonctions de contrôleur...
+// // Les autres fonctions de contrôleur...
