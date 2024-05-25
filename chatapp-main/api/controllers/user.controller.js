@@ -108,15 +108,18 @@ export const remove_expert = async (req, res, next) => {
   }
 };
 
-export const add_moderator = async (req, res, next) => {
-  const user = await User.findById(req.params.id);
-  if (user.role === "moderator") {
-    await user.updateOne({ role: "moderator" });
-    res.status(200).send("User has been added to moderators.");
-  } else {
-    res.status(403).send("User is already a moderator.");
+export const update_moderator= async (req, res, next) => {
+  try {
+    const { role } = req.body;
+    const user = await User.findById(req.params.id);
+    user.role = role;
+    await user.save();
+    res.status(200).json(user);
+  } catch (error) {
+    return next(createError(500, "Could not update user role."));
   }
 };
+
 
 export const remove_moderator = async (req, res, next) => {
   const user = await User.findById(req.params.id);

@@ -9,7 +9,7 @@ import {
   getFollowers,
   add_expert,
   remove_expert,
-  add_moderator,
+  update_moderator,
   remove_moderator,
   bloquer_user,
   debloquer_user,
@@ -45,16 +45,14 @@ router.post(
   checkIfUserIsModerator,
   remove_expert
 );
-router.post(
-  "/users/:id/add_moderator",
+router.put(
+  "/users/updaterole/:id",
   verifyToken,
-  checkIfUserIsAdmin,
-  add_moderator
+  update_moderator
 );
-router.post(
-  "/users/:id/remove_moderator",
+router.put(
+  "/users/removemoderator/:id",
   verifyToken,
-  checkIfUserIsAdmin,
   remove_moderator
 );
 router.patch(

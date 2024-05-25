@@ -4,7 +4,7 @@ import { Button } from "../../components";
 import Header from "../../components/Header";
 import { useParams } from "react-router-dom";
 
-const UserTable = () => {
+const AdminTable = () => {
     // State to handle user data
     const [userData, setUserData] = useState([]);
     // State to handle checkbox selections
@@ -33,30 +33,36 @@ const UserTable = () => {
         });
     };
 
-    // Handle blocking users
-    // Handle blocking users 
+    // Handle blocking or updating user roles
     const handleBlockUsers = async () => {
         if (showCheckboxes) {
-            const usersToDelete = userData.filter((_, index) => selectedUsers[index]);
-            for (let userToDelete of usersToDelete) {
-                console.log("[will-delete]:", userToDelete._id)
-                await axios.delete(
-                    `http://localhost:8800/api/users/users/bloqueruser/${userToDelete._id}`, {
-                    withCredentials: true
+            const usersToModify = userData.filter((_, index) => selectedUsers[index]);
+            for (let userToModify of usersToModify) {
+                console.log("[will-modify]:", userToModify._id)
+                if (userToModify.role === 'moderator') {
+                    await axios.put(
+                        `http://localhost:8800/api/users/users/updaterole/${userToModify._id}`, {
+                        role: 'user'
+                    }, {
+                        withCredentials: true
+                    });
+                    userToModify.role = 'user'; // Mise à jour locale du rôle
+                } else if (userToModify.role === 'user') {
+                    await axios.put(
+                        `http://localhost:8800/api/users/users/updaterole/${userToModify._id}`, {
+                        role: 'moderator'
+                    }, {
+                        withCredentials: true
+                    });
+                    userToModify.role = 'moderator'; // Mise à jour locale du rôle
                 }
-                );
-
             }
-            const remainingUsers = userData.filter(
-                (_, index) => !selectedUsers[index]
-            );
-            setUserData(remainingUsers);
+            setUserData([...userData]); // Rafraîchir la liste des utilisateurs
             setSelectedUsers([]);
         } else {
             setShowCheckboxes(true);
         }
     };
-
 
     // Handle cancel action
     const handleCancel = () => {
@@ -75,7 +81,7 @@ const UserTable = () => {
                             <th className="py-2 px-4 border-b">Lastname</th>
                             <th className="py-2 px-4 border-b">Firstname</th>
                             <th className="py-2 px-4 border-b">Role</th>
-                            <th className="py-2 px-4 border-b">Block</th>
+                            <th className="py-2 px-4 border-b">Modify</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -107,7 +113,7 @@ const UserTable = () => {
                         size="md"
                         onClick={handleBlockUsers}
                     >
-                        Bloquer utilisateur
+                        {showCheckboxes && selectedUsers.some(selected => selected) ? 'Save' : 'Modifier rôle utilisateur'}
                     </Button>
                     <Button
                         className="flex justify-center items-center min-w-[250px] bg-gradient text-white-A700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
@@ -125,4 +131,4 @@ const UserTable = () => {
     );
 };
 
-export default UserTable;
+export default AdminTable;
