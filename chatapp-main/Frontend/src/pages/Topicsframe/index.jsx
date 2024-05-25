@@ -1,12 +1,13 @@
 import axios from "axios";
 import { Helmet } from "react-helmet";
 import React, { useState, useEffect } from "react";
-
 import Header from "../../components/Header";
 import { useNavigate } from "react-router-dom";
 import { Button, Input, Heading } from "../../components";
+import { useUserContext } from "contexts/user.context";
 
 export default function TopicsframePage() {
+  const { user } = useUserContext();
   const navigate = useNavigate();
 
   const [topics, setTopics] = useState([]);
@@ -41,7 +42,7 @@ export default function TopicsframePage() {
 
   const handleTopicClick = (topicId) => {
     localStorage.setItem("selectedTopicId", topicId);
-    navigate("/topics/" + topicId); 
+    navigate("/topics/" + topicId);
   };
 
   return (
@@ -63,6 +64,15 @@ export default function TopicsframePage() {
           >
             Topics
           </Heading>
+
+          {user && user.role === 'moderator' && (<Button
+            size="xs"
+            className="min-w-[88px] rounded-full bg-gray-300 font-extrabold py-2 px-4"
+            onClick={() => navigate("/users")} // Ajout de la redirection en arrière
+          >
+            Liste utilisateurs
+          </Button>
+          )}
           <div className="flex w-full items-center gap-2">
             <Input
               value={searchBarValue}

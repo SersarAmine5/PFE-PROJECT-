@@ -1,11 +1,11 @@
 import express from "express";
 import {
-  approveRoom,
+  // approveRoom,
   createRoom,
   deleteRoom,
   getRoom,
   getRooms,
-  updateRoom,
+  // updateRoom,
   getRoomMessages,
 } from "../controllers/room.controller.js";
 import { verifyToken, checkIfUserIsExpert } from "../middleware/jwt.js";
@@ -18,8 +18,8 @@ router.get("/:id/messages", getRoomMessages);
 router.get("/", getRooms);
 
 router.post("/topics/:topicId/new", createRoom);
-router.post("/:id/approve", approveRoom);
+// router.post("/:id/approve", approveRoom);
 
-router.put("/:id", updateRoom);
+// router.put("/:id", updateRoom);
 
 export default router;

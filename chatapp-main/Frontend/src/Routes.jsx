@@ -11,6 +11,8 @@ import Hompage from "pages/Hompage";
 import SignupOne from "pages/SignupOne";
 import SignupTwo from "pages/SignupTwo";
 import SignupThree from "pages/SignupThree";
+import { Table } from "@chakra-ui/react";
+import UserTable from "pages/Table";
 
 const ProjectRoutes = () => {
   let element = useRoutes([
@@ -27,6 +29,7 @@ const ProjectRoutes = () => {
     { path: "settingsframe", element: <Settingsframe /> },
     { path: "/topics", element: <Topicsframe /> },
     { path: "login", element: <Login /> },
+    { path: "users", element: <UserTable /> }
   ]);
 
   return element;

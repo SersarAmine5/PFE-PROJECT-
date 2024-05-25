@@ -39,30 +39,30 @@ export default function SignupThreePage() {
             <div className="flex w-full justify-between items-start">
               {/* left column */}
               <div className="flex flex-col w-1/2 pr-4 gap-6 ">
-              <center>
-                <Heading size="s" as="h2">
-                  Postulez pour le badge d'Expert
-                </Heading>
-                
-                <Text
-                  size="xs"
-                  as="p"
-                  className="text-[13.34px] leading-8 tracking-[0.40px] text-indigo-900_04"
-                >
-                  En tant qu'Expert, vous aurez le privilège de créer des
-                  sujets, des chats, et d'approuver de nouvelles conversations.
-                  Un modérateur vérifiera vos qualifications. Si vous souhaitez
-                  façonner notre communauté, appliquez maintenant ou cliquez sur
-                  « Passer pour l'instant ».
-                </Text>
-                <div className="flex items-center gap-2">
-                  <input type="checkbox" id="terms" />
-                  <label htmlFor="terms" className="flex items-center ">
-                    I agree to Headspace's Terms & Conditions and acknowledge
-                    the Privacy Policy.
-                  </label>
-                </div>
-              </center>
+                <center>
+                  <Heading size="s" as="h2">
+                    Postulez pour le badge d'Expert
+                  </Heading>
+
+                  <Text
+                    size="xs"
+                    as="p"
+                    className="text-[13.34px] leading-8 tracking-[0.40px] text-indigo-900_04"
+                  >
+                    En tant qu'Expert, vous aurez le privilège de créer des
+                    sujets, des chats, et d'approuver de nouvelles conversations.
+                    Un modérateur vérifiera vos qualifications. Si vous souhaitez
+                    façonner notre communauté, appliquez maintenant ou cliquez sur
+                    « Passer pour l'instant ».
+                  </Text>
+                  <div className="flex items-center gap-2">
+                    <input type="checkbox" id="terms" />
+                    <label htmlFor="terms" className="flex items-center ">
+                      I agree to Headspace's Terms & Conditions and acknowledge
+                      the Privacy Policy.
+                    </label>
+                  </div>
+                </center>
               </div>
               {/* vertical divider */}
               <div className="border-l border-gray-300 h-full mx-4"></div>
@@ -115,6 +115,7 @@ export default function SignupThreePage() {
                 color="blue_500"
                 shape="round"
                 size="md"
+                onClick={() => { window.location.href = "/topics"; }}
               >
                 Skip for now
               </Button>

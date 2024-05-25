@@ -25,7 +25,7 @@ import {
 
 const router = express.Router();
 
-router.delete("/:id", verifyToken, deleteUser);
+router.delete("/users/bloqueruser/:id", verifyToken, deleteUser);                     
 router.get("/users", getUsers);
 router.get("/users/:id", getUser);
 router.patch("/users/:id", verifyToken, updateUser);

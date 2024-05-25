@@ -7,8 +7,8 @@ import Header from "../../components/Header1";
 export default function Hompage() {
   return (
     <>
-    <Helmet>
-      <title>Chat X Home page</title>
+      <Helmet>
+        <title>Chat X Home page</title>
         <meta
           name="description"
           content="Web site created using create-react-app"
