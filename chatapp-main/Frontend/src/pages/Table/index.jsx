@@ -74,6 +74,7 @@ const UserTable = () => {
                         <tr>
                             <th className="py-2 px-4 border-b">Lastname</th>
                             <th className="py-2 px-4 border-b">Firstname</th>
+                            <th className="py-2 px-4 border-b">Role</th>
                             <th className="py-2 px-4 border-b">Block</th>
                         </tr>
                     </thead>
@@ -82,6 +83,7 @@ const UserTable = () => {
                             <tr key={user._id} className={index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}>
                                 <td className="py-2 px-4 border-b">{user.lastname}</td>
                                 <td className="py-2 px-4 border-b">{user.firstname}</td>
+                                <td className="py-2 px-4 border-b">{user.role}</td>
                                 <td className="py-2 px-4 border-b text-center">
                                     {showCheckboxes && (
                                         <input
