@@ -4,7 +4,55 @@ import { Button, Img, Input, Heading } from "../../components";
 import Header from "../../components/Header"; // Assurez-vous que le chemin est correct
 
 export default function RoomsframePage() {
+  const handleCreateRoom = () => {
+    window.location.href = `/topics/${topicId}/new`;
+  };
+
   const [searchBarValue, setSearchBarValue] = useState("");
+<<<<<<< Updated upstream
+=======
+  const [rooms, setRooms] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const navigate = useNavigate();
+  const { topicId } = useParams();
+
+  console.log("[topicId]:", topicId);
+
+  useEffect(() => {
+    const fetchRooms = async () => {
+      try {
+        if (!topicId) {
+          setError("No topic selected");
+          setIsLoading(false);
+          return;
+        }
+
+        const response = await axios.get(
+          `http://localhost:8800/api/topic/topics/${topicId}/rooms`
+        );
+
+        setRooms(response.data);
+        console.log("[rooms]:", response.data);
+        setIsLoading(false);
+      } catch (err) {
+        setError("Something went wrong!");
+        setIsLoading(false);
+      }
+    };
+
+    fetchRooms();
+  }, []);
+
+  const handleSearchChange = (e) => {
+    setSearchBarValue(e.target.value);
+  };
+
+  const handleRoomClick = (roomId) => {
+    navigate(`/topics/${topicId}/${roomId}`); // Utiliser navigate à la place de history.push
+  };
+>>>>>>> Stashed changes
 
   return (
     <>
@@ -38,8 +86,14 @@ export default function RoomsframePage() {
               placeholder="Search in Rooms"
               className="flex-grow rounded-full border-2 border-gray-300 px-4 py-2"
             />
+<<<<<<< Updated upstream
             <Button className="self-start rounded-lg bg-gray-300 hover:bg-gray-400 hover:text-white transition duration-300 ease-in-out p-2 text-white h-12">
               <Img src="images/plus.png" alt="Add room" className="h-6 w-6" />
+=======
+            <Button className="self-start rounded-lg bg-gray-300 hover:bg-gray-400 hover:text-white transition duration-300 ease-in-out p-2 text-white h-12"
+              onClick={handleCreateRoom}>
+              <Img src="/images/plus.png" alt="Add room" className="h-6 w-6" />
+>>>>>>> Stashed changes
             </Button>
           </div>
 

@@ -11,13 +11,21 @@ import Hompage from "pages/Hompage";
 import SignupOne from "pages/SignupOne";
 import SignupTwo from "pages/SignupTwo";
 import SignupThree from "pages/SignupThree";
+import { Table } from "@chakra-ui/react";
+import UserTable from "pages/Table";
 
 const ProjectRoutes = () => {
   let element = useRoutes([
     { path: "/", element: <Hompage /> },
     { path: "*", element: <NotFound /> },
+<<<<<<< Updated upstream
     { path: "roomsframe", element: <Roomsframe /> },
     { path: "createnewroom", element: <Createnewroom /> },
+=======
+    { path: "/topics/:topicId", element: <Roomsframe /> },
+    // { path: "createnewroom", element: <Createnewroom /> },
+    { path: "/topics/:topicId/new", element: <Createnewroom /> },
+>>>>>>> Stashed changes
     { path: "hompage", element: <Hompage /> },
     { path: "signupone", element: <SignupOne /> },
     { path: "signuptwo", element: <SignupTwo /> },
@@ -26,6 +34,7 @@ const ProjectRoutes = () => {
     { path: "settingsframe", element: <Settingsframe /> },
     { path: "topicsframe", element: <Topicsframe /> },
     { path: "login", element: <Login /> },
+    { path: "users", element: <UserTable /> }
   ]);
 
   return element;

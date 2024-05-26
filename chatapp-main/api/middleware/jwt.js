@@ -15,21 +15,21 @@ export const verifyToken = (req, res, next) => {
 };
 
 export const checkIfUserIsModerator = (req, res, next) => {
-  if (req.role !== "moderator") {
+  if (req.user.role !== "moderator") {
     return next(createError(403, "You are not authorized!"));
   }
   next();
 };
 
 export const checkIfUserIsExpert = (req, res, next) => {
-  if (req.role !== "expert") {
+  if (req.user.role !== "expert") {
     return next(createError(403, "You are not authorized!"));
   }
   next();
 };
 
 export const checkIfUserIsAdmin = (req, res, next) => {
-  if (req.role !== "admin") {
+  if (req.user.role !== "admin") {
     return next(createError(403, "You are not authorized!"));
   }
   next();

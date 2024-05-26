@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { Button, Input, Heading } from '../../components';
@@ -6,6 +7,24 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 export default function TopicsframePage() {
+=======
+import axios from "axios";
+import { Helmet } from "react-helmet";
+import React, { useState, useEffect } from "react";
+import Header from "../../components/Header";
+import { useNavigate } from "react-router-dom";
+import { Button, Input, Heading } from "../../components";
+import { useUserContext } from "contexts/user.context";
+
+export default function TopicsframePage() {
+  const { user } = useUserContext();
+  const navigate = useNavigate();
+
+  const [topics, setTopics] = useState([]);
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+>>>>>>> Stashed changes
   const [searchBarValue, setSearchBarValue] = useState("");
   const [topics, setTopics] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -34,8 +53,13 @@ export default function TopicsframePage() {
   };
 
   const handleTopicClick = (topicId) => {
+<<<<<<< Updated upstream
     localStorage.setItem('selectedTopicId', topicId);
     navigate('/roomsframe'); // Utiliser navigate à la place de history.push
+=======
+    localStorage.setItem("selectedTopicId", topicId);
+    navigate("/topics/" + topicId);
+>>>>>>> Stashed changes
   };
 
   return (
