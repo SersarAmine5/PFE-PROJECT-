@@ -172,7 +172,7 @@ export default function MessagesframePage() {
             >
               Retour
             </Button>
-            {user.role === "utilisateur expert" && (
+            {user.role === "utilisateur expert" || user.role === "moderator" || user.role === "admin" && (
               <Button
                 size="xs"
                 className="min-w-[88px] rounded-full bg-gray-300 font-extrabold py-2 px-4"

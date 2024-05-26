@@ -75,6 +75,12 @@ const AdminTable = () => {
             {/* navigation bar section */}
             <Header className="bg-gradient w-[1272px]" />
             <div className="p-4 w-[1000px]">
+                <Button
+                    className="self-start rounded-lg bg-gray-300 px-4 py-2 text-sm font-extrabold mb-[20px] hover:bg-gray-400 hover:text-white transition duration-300 ease-in-out h-12"
+                    onClick={() => window.location.href = "/topics"} // Go back to topics page
+                >
+                    Topics
+                </Button>
                 <table className="min-w-full bg-white border border-gray-200">
                     <thead>
                         <tr>
@@ -115,16 +121,18 @@ const AdminTable = () => {
                     >
                         {showCheckboxes && selectedUsers.some(selected => selected) ? 'Save' : 'Modifier rôle utilisateur'}
                     </Button>
-                    <Button
-                        className="flex justify-center items-center min-w-[250px] bg-gradient text-white-A700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                        variant="fill"
-                        color="blue_500"
-                        shape="round"
-                        size="md"
-                        onClick={handleCancel}
-                    >
-                        Annuler
-                    </Button>
+                    {showCheckboxes && (
+                        <Button
+                            className="flex justify-center items-center min-w-[250px] bg-gradient text-white-A700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                            variant="fill"
+                            color="blue_500"
+                            shape="round"
+                            size="md"
+                            onClick={handleCancel}
+                        >
+                            Annuler
+                        </Button>
+                    )}
                 </div>
             </div>
         </div>

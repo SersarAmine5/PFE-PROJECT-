@@ -7,16 +7,15 @@ import { Link, useNavigate } from "react-router-dom";
 import { useUserContext } from "../../contexts/user.context";
 
 const dropDownOptions = [
-  { label: "Option1", value: "option1" },
-  { label: "Option2", value: "option2" },
-  { label: "Option3", value: "option3" },
+  { label: "Homme", value: "Homme" },
+  { label: "Femme", value: "Femme" },
 ];
 
 export default function SignupOne() {
-  const handleloginClick = () =>{
+  const handleloginClick = () => {
     window.location.href = '/login';
   }
-  
+
   const [formData, setFormData] = useState({
     firstname: "",
     lastname: "",
@@ -194,7 +193,7 @@ export default function SignupOne() {
               <Text size="md" as="p" className="mt-4 text-center">
                 Vous avez déjà un compte ?{" "}
                 <Link to="/login" className="text-blue-400 cursor-pointer"
-                onClick={handleloginClick}>
+                  onClick={handleloginClick}>
                   Se connecter
                 </Link>
               </Text>

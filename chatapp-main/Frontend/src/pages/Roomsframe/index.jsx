@@ -77,7 +77,7 @@ export default function RoomsframePage() {
           <div className="flex items-center gap-2 mb-4">
             <Button
               className="self-start rounded-lg bg-gray-300 px-4 py-2 text-sm font-extrabold hover:bg-gray-400 hover:text-white transition duration-300 ease-in-out h-12"
-              onClick={() => window.history.back()} // Go back to topics page
+              onClick={() => window.location.href = "/topics"} // Go back to topics page
             >
               Topics
             </Button>
