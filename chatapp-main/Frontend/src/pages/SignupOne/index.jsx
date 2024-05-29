@@ -80,7 +80,7 @@ export default function SignupOne() {
       <div className="overflow-hidden">
         <div className="bg-gradient py-6 sm:py-3 flex justify-center">
           <Img
-            src="images/img_image_removebg_preview.png"
+            src="/images/img_image_removebg_preview.png"
             alt="image d'en-tête"
             className="h-[60px] w-[150px] sm:w-[200px] md:w-[300px]"
           />

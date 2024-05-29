@@ -42,6 +42,10 @@ export default function Header({ ...props }) {
     setMenuOpen(false);
     navigate('/adminusers');
   };
+  const handleExpertsList = () => {
+    setMenuOpen(false);
+    navigate('/expertsusers');
+  };
 
   return (
     <header
@@ -50,7 +54,7 @@ export default function Header({ ...props }) {
     >
       <div className="mx-auto flex w-full max-w-[1415px] items-center justify-between  sm:flex-col">
         <Img
-          src="images/img_image_removebg_preview.png"
+          src="/images/img_image_removebg_preview.png"
           alt="background image"
           className="h-[60px] w-[14%] object-cover sm:w-full m-[10px]"
         />
@@ -67,32 +71,40 @@ export default function Header({ ...props }) {
                   {getInitials(user.lastname + " " + user.firstname)}
                 </div>
                 {menuOpen && (
-                  <div className="absolute right-0 mt-5 w-48 bg-white border border-gray-200 rounded-lg shadow-lg hover:bg-sky-500 ">
+                  < div className="absolute left-0 mt-5 w-48 bg-white border border-gray-200 rounded-lg shadow-lg bg-gradient ">
                     {(user.role === 'admin' || user.role === 'moderator') && (
                       <button
                         onClick={handleUserList}
-                        className="block w-full px-4 py-2 text-left text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-lg transition duration-200"
+                        className="block w-full px-4 py-2 text-left text-white-A700 hover:bg-gray-100 hover:text-gray-900 rounded-lg transition duration-200"
                       >
                         Liste utilisateurs
                       </button>
                     )}
                     {user.role === 'admin' && (
                       <button
+                        onClick={handleExpertsList}
+                        className="block w-full px-4 py-2 text-left text-white-A700 hover:bg-gray-100 hover:text-gray-900 rounded-lg transition duration-200"
+                      >
+                        Demandes Experts
+                      </button>
+                    )}
+                    {user.role === 'admin' && (
+                      <button
                         onClick={handleAdminUserList}
-                        className="block w-full px-4 py-2 text-left text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-lg transition duration-200"
+                        className="block w-full px-4 py-2 text-left text-white-A700 hover:bg-gray-100 hover:text-gray-900 rounded-lg transition duration-200"
                       >
                         Modifier rôle utilisateur
                       </button>
                     )}
                     <button
                       onClick={handleSettings}
-                      className="block w-full px-4 py-2 text-left text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-lg transition duration-200"
+                      className="block w-full px-4 py-2 text-left text-white-A700 hover:bg-gray-100 hover:text-gray-900 rounded-lg transition duration-200"
                     >
                       Paramètres
                     </button>
                     <button
                       onClick={handleLogout}
-                      className="block w-full px-4 py-2 text-left text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-lg transition duration-200"
+                      className="block w-full px-4 py-2 text-left text-white-A700 hover:bg-gray-100 hover:text-gray-900 rounded-lg transition duration-200"
                     >
                       Déconnexion
                     </button>

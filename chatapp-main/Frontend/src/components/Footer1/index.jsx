@@ -8,7 +8,7 @@ export default function Footer({ className }) {
         <div className="container-xs flex justify-center px-5 md:px-5">
           <div className="flex w-full flex-col items-center text-center">
             <Img
-              src="images/img_image_removebg_preview.png"
+              src="/images/img_image_removebg_preview.png"
               alt="brand image"
               className="h-30 w-1/3 object-cover"
             />

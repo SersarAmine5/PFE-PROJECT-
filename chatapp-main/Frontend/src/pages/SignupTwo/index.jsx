@@ -85,7 +85,7 @@ export default function SignupTwoPage() {
       </Helmet>
       <div className="bg-gradient py-6 sm:py-3 flex justify-center">
         <Img
-          src="images/img_image_removebg_preview.png"
+          src="/images/img_image_removebg_preview.png"
           alt="header image"
           className="h-[60px] w-[150px] sm:w-[200px] md:w-[300px]"
         />

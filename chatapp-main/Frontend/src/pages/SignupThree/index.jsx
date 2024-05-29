@@ -1,12 +1,50 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
 import { Helmet } from "react-helmet";
 import { Button, Text, Input, Heading, Img } from "../../components";
+import { useUserContext } from "contexts/user.context";
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 export default function SignupThreePage() {
   const [file, setFile] = useState(null);
+  const [degree, setDegree] = useState('');
+  const [specialization, setSpecialization] = useState('');
+  const { user, setUser } = useUserContext();
+
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
+  };
+
+  const handleDegreeChange = (event) => {
+    setDegree(event.target.value);
+  };
+
+  const handleSpecializationChange = (event) => {
+    setSpecialization(event.target.value);
+  };
+
+  const handleSubmitChange = async () => {
+    try {
+      const updatedUser = { ...user, isSubmitted: true };
+
+      console.log("Updated user:", updatedUser);
+      await axios.put(`http://localhost:8800/api/users/updatesubmit/${user._id}`, updatedUser, { withCredentials: true });
+      console.log("Updated user:", updatedUser);
+
+      setUser(updatedUser);
+
+      console.log("User:", user);
+      console.log("Degree:", degree);
+      console.log("Specialization:", specialization);
+      window.location.href = "/topics";
+    } catch (error) {
+      console.error("Error updating user:", error);
+    }
+  };
+  const ChangehandleSubmit = (event) => {
+    event.preventDefault();
+    handleSubmitChange(user, degree, specialization);
   };
 
   return (
@@ -24,7 +62,7 @@ export default function SignupThreePage() {
         <div className="flex justify-center self-stretch bg-gradient pb-[18px] pt-[33px] sm:pt-5">
           <div className="container-xs flex justify-center md:p-5 md:px-5">
             <Img
-              src="images/img_image_removebg_preview.png"
+              src="/images/img_image_removebg_preview.png"
               alt="header image"
               className="h-[60px] w-[150px] sm:w-[200px] md:w-[300px]"
             />
@@ -73,12 +111,16 @@ export default function SignupThreePage() {
                   name="Degree Input"
                   placeholder="Your highest degree*"
                   className="self-stretch sm:pr-5"
+                  value={degree}
+                  onChange={handleDegreeChange}
                 />
                 <Input
                   shape="round"
                   name="Specialization Input"
                   placeholder="Area of specialization*"
                   className="self-stretch sm:pr-5"
+                  value={specialization}
+                  onChange={handleSpecializationChange}
                 />
 
                 <label className="flex flex-col items-center w-full px-4 py-6 bg-white-A700 text-blue-500 h-13 rounded-lg border border-blue-200 cursor-pointer hover:bg-blue-100 hover:text-blue-700 shadow-sm shadow-black">
@@ -125,6 +167,7 @@ export default function SignupThreePage() {
                 color="blue_500"
                 shape="round"
                 size="md"
+                onClick={ChangehandleSubmit}
               >
                 Next
               </Button>

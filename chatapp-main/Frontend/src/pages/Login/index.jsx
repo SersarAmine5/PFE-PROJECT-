@@ -43,7 +43,7 @@ export default function LoginPage() {
       <div>
         <div className="bg-gradient py-6 sm:py-3 flex justify-center">
           <Img
-            src="images/img_image_removebg_preview.png"
+            src="/images/img_image_removebg_preview.png"
             alt="header image"
             className="h-[60px] w-[150px] sm:w-[200px] md:w-[300px]"
           />
@@ -55,10 +55,10 @@ export default function LoginPage() {
                 Log in
               </Heading>
               <Text size="xs" as="p" className="mt-4 text-gray-700">
-                <span>New to Headspace?</span>
+                <span>Nouveau à chatX</span>
                 <a href="#" className="text-blue-500"
-                onClick={handleSignUpClick}>
-                  Sign up for free
+                  onClick={handleSignUpClick}>
+                  s'inscrire gratuitement
                 </a>
               </Text>
               <form onSubmit={handleSubmit}>
@@ -85,19 +85,14 @@ export default function LoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
-                <a href="#" className="self-end mt-2">
-                  <Text size="xs" className="text-blue-500">
-                    Forgot password?
-                  </Text>
-                </a>
+
                 <div className="flex justify-center mt-[50px]">
                   <Button
-                    className="w-80 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    className="mt-5 mb-5 min-w-[250px] bg-gradient text-white-A700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                     variant="fill"
                     color="blue_500"
                     shape="round"
                     size="md"
-                    type="submit"
                   >
                     Login
                   </Button>

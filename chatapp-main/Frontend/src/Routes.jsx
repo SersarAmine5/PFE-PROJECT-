@@ -14,6 +14,7 @@ import SignupThree from "pages/SignupThree";
 import { Table } from "@chakra-ui/react";
 import UserTable from "pages/Moderatortable";
 import AdminTable from "pages/Admintable";
+import ExpertTable from "pages/ExpertsTable";
 
 const ProjectRoutes = () => {
   let element = useRoutes([
@@ -31,7 +32,8 @@ const ProjectRoutes = () => {
     { path: "/topics", element: <Topicsframe /> },
     { path: "login", element: <Login /> },
     { path: "users", element: <UserTable /> },
-    { path: "adminusers", element: <AdminTable /> }
+    { path: "adminusers", element: <AdminTable /> },
+    { path: "expertsusers", element: <ExpertTable /> }
   ]);
 
   return element;

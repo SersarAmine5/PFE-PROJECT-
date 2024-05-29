@@ -36,10 +36,6 @@ export default function TopicsframePage() {
   };
 
   const handleTopicClick = (topicId) => {
-
-    localStorage.setItem('selectedTopicId', topicId);
-    navigate('/roomsframe'); // Utiliser navigate à la place de history.push
-    localStorage.setItem("selectedTopicId", topicId);
     navigate("/topics/" + topicId);
   };
 
@@ -76,7 +72,7 @@ export default function TopicsframePage() {
                 <Button
                   key={topic._id}
                   onClick={() => handleTopicClick(topic._id)}
-                  className="w-full rounded-lg bg-white px-4 py-2 text-left text-gray-900 shadow hover:bg-gray-200 hover:shadow-md transition"
+                  className="w-full rounded-lg bg-white px-4 py-2 text-left text-gray-900 shadow hover:bg-gray-200 hover:shadow-sm transition"
                 >
                   {topic.name}
                 </Button>

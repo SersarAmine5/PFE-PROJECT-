@@ -7,13 +7,15 @@ import {
   followUser,
   unfollowUser,
   getFollowers,
-  add_expert,
   remove_expert,
   update_moderator,
   remove_moderator,
   bloquer_user,
   debloquer_user,
   getFollowing,
+  getSubmitedUsers,
+  update_submit,
+  approuver_expert
 } from "../controllers/user.controller.js";
 import {
   checkIfUserIsAdmin,
@@ -25,7 +27,7 @@ import {
 
 const router = express.Router();
 
-router.delete("/users/bloqueruser/:id", verifyToken, deleteUser);                     
+router.delete("/users/bloqueruser/:id", verifyToken, deleteUser);
 router.get("/users", getUsers);
 router.get("/users/:id", getUser);
 router.patch("/users/:id", verifyToken, updateUser);
@@ -33,16 +35,16 @@ router.post("/users/:id/follow", verifyToken, followUser);
 router.post("/users/:id/unfollow", verifyToken, unfollowUser);
 router.get("/users/:id/followers", getFollowers);
 router.get("/users/:id/following", getFollowing);
-router.post(
-  "/users/:id/add_expert",
+router.get("/usersSubmited", getSubmitedUsers);
+router.put("/updatesubmit/:id", update_submit);
+router.put(
+  "/users/approuver_expert/:id",
   verifyToken,
-  checkIfUserIsModerator,
-  add_expert
+  approuver_expert
 );
 router.post(
   "/users/:id/remove_expert",
   verifyToken,
-  checkIfUserIsModerator,
   remove_expert
 );
 router.put(

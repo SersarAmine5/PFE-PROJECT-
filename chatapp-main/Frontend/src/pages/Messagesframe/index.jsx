@@ -1,10 +1,24 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Helmet } from "react-helmet";
-import Header from "../../components/Header";
-import { Button, Heading, Img, Input, Text } from "../../components";
-import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { useUserContext } from "contexts/user.context";
+import { useEffect, useRef, useState } from "react";
+import { Helmet } from "react-helmet";
+import { useNavigate, useParams } from "react-router-dom";
+import { Button, Heading, Img, Input, Text } from "../../components";
+import Header from "../../components/Header";
+
+function groupMessagesByDay(messages) {
+  const groups = {};
+
+  messages.forEach((message) => {
+    const date = message.date_heure_envoie.split("T")[0];
+    if (!groups[date]) {
+      groups[date] = [];
+    }
+    groups[date].push(message);
+  });
+
+  return groups;
+}
 
 export default function MessagesframePage() {
   const messagesEndRef = useRef(null);
@@ -23,7 +37,7 @@ export default function MessagesframePage() {
 
   const { topicId, roomId } = useParams();
 
-  console.log("[params]: here", topicId, roomId);
+  console.log("[user]", user)
 
   const handleDeleteRoom = async () => {
     try {
@@ -148,6 +162,10 @@ export default function MessagesframePage() {
     );
   }
 
+  const grouppedMessages = groupMessagesByDay(messages);
+
+  console.log("[grouppedMessages]:", grouppedMessages);
+
   return (
     <>
       <Helmet>
@@ -164,35 +182,23 @@ export default function MessagesframePage() {
           className="flex flex-col flex-grow mx-auto w-[97%] md:w-full md:p-5"
           style={{ marginTop: "20px" }}
         >
-          <div className="flex items-center gap-x-4 w-full md:flex-col">
+          <div className="flex items-center gap-4 w-full md:flex-col">
             <Button
               size="xs"
-              className="min-w-[88px] rounded-full bg-gray-300 font-extrabold py-2 px-4"
+              className="min-w-[88px] rounded bg-gray-300 font-extrabold py-2 px-4"
               onClick={() => navigate(-1)} // Ajout de la redirection en arrière
             >
               Retour
             </Button>
-            {user.role === "utilisateur expert" || user.role === "moderator" || user.role === "admin" && (
+            {(user.role === "utilisateur expert" || user.role === "moderator" || user.role === "admin") && (
               <Button
                 size="xs"
-                className="min-w-[88px] rounded-full bg-gray-300 font-extrabold py-2 px-4"
+                className="min-w-[88px] rounded bg-gray-300 font-extrabold py-2 px-4"
                 onClick={handleDeleteRoom}
               >
                 supprimer
               </Button>
             )}
-            {/* <div className="flex flex-1 items-start justify-center bg-white-A700 px-2 pt-2 rounded-lg shadow-sm md:w-full">
-              <div className="flex flex-col w-11/12 md:w-full">
-                <div className="flex justify-between items-start ">
-                  <Heading
-                    size="s"
-                    className="ml-[500px] mb-2 text-gray-900 tracking-tight"
-                  >
-                    {room.title}
-                  </Heading>
-                </div>
-              </div>
-            </div> */}
             <div className="flex flex-1 items-start justify-center bg-white-A700 px-2 pt-2 rounded-lg shadow-sm md:w-full">
               <Heading
                 size="s"
@@ -204,7 +210,8 @@ export default function MessagesframePage() {
           </div>
 
           <div
-            className="flex-grow overflow-y-auto w-full px-2"
+            ref={messagesEndRef}
+            className="mt-4 flex-grow overflow-y-auto w-full px-2"
             style={{
               maxHeight: "calc(100vh - 200px)",
               paddingBottom: "60px",
@@ -212,46 +219,52 @@ export default function MessagesframePage() {
               msOverflowStyle: "none",
             }}
           >
-            <style>
-              {`/* Hide scrollbar for Chrome, Safari and Opera */
-              .w-full::-webkit-scrollbar {
-                display: none;
-              }
-
-              /* Hide scrollbar for IE, Edge et Firefox */
-              .w-full {
-                -ms-overflow-style: none;  /* IE et Edge */
-                scrollbar-width: none;  /* Firefox */
-              }`}
-            </style>
-            {messages.map((msg, index) => (
-              <div
-                key={index}
-                className={`flex ${msg.userId._id === user?._id ? "justify-end" : "justify-start"
-                  } my-2`}
-              >
-                <div
-                  className={`flex flex-col gap-y-1 max-w-[80%] p-3 rounded-lg shadow-md ${msg.userId._id === user?._id
-                    ? "bg-blue-500  mr-4"
-                    : "bg-gray-400 ml-4"
-                    }`}
-                >
-                  <Text className="text-white-A700 font-extrabold text-xl">
-                    {msg.userId.lastname + " " + msg.userId.firstname}
-                  </Text>
-
-                  <Text className="text-white-A700 break-words">{msg.contenu}</Text>
-                  <Text size="xs" className="text-white-A700 self-end">
-                    {formatTime(msg.date_heure_envoie)}
-                  </Text>
-                </div>
+            {Object.keys(grouppedMessages).length === 0 ? (
+              <div className="w-full flex flex-col item-center justify-center mt-16">
+                <div className="text-2xl font-bold text-center">Aucun Message Disponible.</div>
+                <div className="text-base font-medium text-center">Soyez le premier a envoyé un message sur cette room.</div>
               </div>
-            ))}
-            <div ref={messagesEndRef} />
+            ) : Object.keys(grouppedMessages).map((date, index) => {
+              return (
+                <div>
+                  <div className="grid grid-cols-[1fr_auto_1fr] items-center justify-center gap-2">
+                    <div className="w-full h-[0.25px] rounded bg-gray-500"></div>
+                    <div className="text-gray-500 text-xs" >{date}</div>
+                    <div className="w-full h-[0.25px] rounded bg-gray-500"></div>
+                  </div>
+                  <div>
+                    {grouppedMessages[date].map((msg) => {
+                      return (
+                        <div
+                          key={index}
+                          className={`flex ${msg.userId._id === user?._id ? "justify-end" : "justify-start"
+                            } my-2`}
+                        >
+                          <div
+                            className={`flex flex-col gap-y-1 max-w-[80%] p-3 rounded-lg shadow-sm ${msg.userId._id === user?._id
+                              ? "bg-blue-500  mr-4"
+                              : "bg-gray-400 ml-4"
+                              }`}
+                          >
+                            <Text className="text-white-A700 font-extrabold text-xl">
+                              {msg.userId.lastname + " " + msg.userId.firstname}
+                            </Text>
+
+                            <Text className="text-white-A700 break-words">{msg.contenu}</Text>
+                            <Text size="xs" className="text-white-A700 self-end">
+                              {formatTime(msg.date_heure_envoie)}
+                            </Text>
+                          </div>
+                        </div>
+                      )
+                    })}
+                  </div>
+                </div>
+              )
+            })}
           </div>
         </div>
-
-        <div className="fixed bottom-0 left-0 right-0 bg-white px-4 py-2 shadow-md">
+        <div className="fixed bottom-0 left-0 right-0 bg-white px-4 py-2 shadow-sm">
           <form
             onSubmit={handleSendMessage}
             className="flex items-center gap-3"

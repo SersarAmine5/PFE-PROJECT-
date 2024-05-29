@@ -6,10 +6,12 @@ const userSchema = new Schema(
     lastname: {
       type: String,
       required: false,
+      unique: false
     },
     firstname: {
       type: String,
       required: false,
+      unique: false
     },
     email: {
       type: String,
@@ -28,7 +30,7 @@ const userSchema = new Schema(
       type: String,
       required: false,
     },
-    desciption: {
+    description: {
       type: String,
       required: false,
     },
@@ -44,6 +46,22 @@ const userSchema = new Schema(
       type: String,
       enum: ["user", "admin", "moderator", "utilisateur expert"],
       default: "user",
+    },
+    isSubmited: {
+      type: Boolean,
+      default: false,
+    },
+    Area_of_expertise: {
+      type: String,
+      required: false,
+    },
+    // Area_of_expertise: {
+    //   type: [String],
+    //   required: false,
+    // },
+    Highest_degree: {
+      type: String,
+      required: false,
     },
     // topic_subscribed_at: [
     //   {

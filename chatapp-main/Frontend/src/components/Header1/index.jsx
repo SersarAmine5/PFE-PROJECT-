@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Img } from "..";
 export default function Header({ ...props }) {
-  const handleloginClick = () =>{
+  const handleloginClick = () => {
     window.location.href = '/login';
   }
 
@@ -15,9 +15,9 @@ export default function Header({ ...props }) {
     >
       <div className="mx-auto flex w-full max-w-[1401px] items-center justify-between gap-5 md:flex-col">
         <Img
-          src="images/img_image_removebg_preview.png"
+          src="/images/img_image_removebg_preview.png"
           alt="header image"
-          className="h-[99px] w-[18%] object-cover md:w-full"
+          className="h-[99px] w-[18%] object-contain md:w-full"
         />
         <div className="flex w-[27%] justify-between gap-5 md:w-full">
           <Button

@@ -74,12 +74,12 @@ export default function RoomsframePage() {
             Rooms
           </Heading>
 
-          <div className="flex items-center gap-2 mb-4">
+          <div className="flex items-center justify-center gap-2 mb-4">
             <Button
-              className="self-start rounded-lg bg-gray-300 px-4 py-2 text-sm font-extrabold hover:bg-gray-400 hover:text-white transition duration-300 ease-in-out h-12"
-              onClick={() => window.location.href = "/topics"} // Go back to topics page
+              className="rounded-lg bg-gray-300 hover:bg-blue_gray-200_a5 hover:text-white transition duration-300 ease-in-out p-2 text-white h-12"
+              onClick={() => (window.location.href = "/topics")} // Go back to topics page 
             >
-              Topics
+              <Img src="/images/retour.png" alt="retour" className="h-6 w-6" />
             </Button>
 
             <Input
@@ -88,8 +88,11 @@ export default function RoomsframePage() {
               placeholder="Search in Rooms"
               className="flex-grow rounded-full border-2 border-gray-300 px-4 py-2"
             />
-            <Button className="self-start rounded-lg bg-gray-300 hover:bg-gray-400 hover:text-white transition duration-300 ease-in-out p-2 text-white h-12"
-              onClick={handleCreateRoom}>
+
+            <Button
+              className="rounded-lg bg-gray-300 hover:bg-blue_gray-200_a5 transition duration-300 ease-in-out p-2 text-white h-12"
+              onClick={handleCreateRoom}
+            >
               <Img src="/images/plus.png" alt="Add room" className="h-6 w-6" />
             </Button>
           </div>
@@ -110,7 +113,7 @@ export default function RoomsframePage() {
                   <Button
                     key={index}
                     onClick={() => handleRoomClick(room._id)}
-                    className="w-full rounded-lg bg-white px-4 py-2 text-left text-gray-900 shadow hover:bg-gray-200 hover:shadow-md transition mb-2"
+                    className="w-full rounded-lg bg-white px-4 py-2 text-left text-gray-900 shadow hover:bg-gray-200 hover:shadow-sm transition mb-2"
                   >
                     {room.title}
                   </Button>

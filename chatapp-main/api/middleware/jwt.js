@@ -11,12 +11,12 @@ export const verifyToken = (req, res, next) => {
     if (err) return next(createError(403, "Token is not valid!"));
 
     const userr = await user.findOne({ _id: payload.id });
-    
+
     // faut enlever ca
-    req.userr = user;
+    req.userr = userr;
     // ---
-    req.userr = user;
-    
+    req.userr = userr;
+
     next();
   });
 };
@@ -29,7 +29,7 @@ export const checkIfUserIsModerator = (req, res, next) => {
 };
 
 export const checkIfUserIsExpert = (req, res, next) => {
-  if (req.user.role !== "expert") {
+  if (req.user.role !== "utilisateur expert") {
     return next(createError(403, "You are not authorized!"));
   }
   next();

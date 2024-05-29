@@ -16,9 +16,14 @@ export const getUser = async (req, res, next) => {
   const user = await User.findById(req.params.id);
   res.status(200).send(user);
 };
-
 export const getUsers = async (req, res, next) => {
-  const users = await User.find({});
+  const users = await User.find({})
+
+  res.status(200).send(users);
+};
+
+export const getSubmitedUsers = async (req, res, next) => {
+  const users = await User.find({ isSubmited: true })
 
   res.status(200).send(users);
 };
@@ -26,12 +31,17 @@ export const getUsers = async (req, res, next) => {
 export const updateUser = async (req, res, next) => {
   const user = await User.findById(req.params.id);
 
-  if (req.userId !== user._id.toString()) {
-    return next(createError(403, "You can update only your account!"));
+  console.log(req.userr._id.toString())
+  console.log(req.body)
+
+  if (req.userr._id.toString() !== req.params.id) {
+    return next(createError(403, "You can updausete only your account!"));
   }
+
   const updatedUser = await User.findByIdAndUpdate(req.params.id, {
-    $set: req.body,
-  });
+    ...req.body
+  }, { new: true });
+
   res.status(200).send(updatedUser);
 };
 
@@ -88,27 +98,23 @@ export const getFollowing = async (req, res, next) => {
   res.status(200).send(following);
 };
 
-export const add_expert = async (req, res, next) => {
-  const user = await User.findById(req.params.id);
-  if (user.role === "user") {
-    await user.updateOne({ role: "expert" });
-    res.status(200).send("User has been added to experts.");
-  } else {
-    res.status(403).send("User is already an expert.");
+
+export const approuver_expert = async (req, res, next) => {
+  try {
+    const { role } = req.body;
+    const user = await User.findById(req.params.id);
+    user.role = role;
+    await user.save();
+    res.status(200).json(user);
+  } catch (error) {
+    console.log(error.message, error)
+    return next(createError(500, "Could not update user role."));
   }
 };
 
-export const remove_expert = async (req, res, next) => {
-  const user = await User.findById(req.params.id);
-  if (user.role === "expert") {
-    await user.updateOne({ role: "user" });
-    res.status(200).send("User has been removed from experts.");
-  } else {
-    res.status(403).send("User is not an expert.");
-  }
-};
 
-export const update_moderator= async (req, res, next) => {
+
+export const update_moderator = async (req, res, next) => {
   try {
     const { role } = req.body;
     const user = await User.findById(req.params.id);
@@ -119,7 +125,26 @@ export const update_moderator= async (req, res, next) => {
     return next(createError(500, "Could not update user role."));
   }
 };
+export const update_submit = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.params.id);
+    user.isSubmited = true;
+    await user.save();
+    res.status(200).json(user);
+  } catch (error) {
+    return next(createError(500, "Could not update user submission status."));
+  }
+}
 
+export const remove_expert = async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+  if (user.role === "expert") {
+    await user.updateOne({ role: "user" });
+    res.status(200).send("User has been removed from experts.");
+  } else {
+    res.status(403).send("User is not an expert.");
+  }
+};
 
 export const remove_moderator = async (req, res, next) => {
   const user = await User.findById(req.params.id);
