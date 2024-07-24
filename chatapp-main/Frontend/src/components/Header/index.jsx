@@ -65,7 +65,7 @@ export default function Header({ ...props }) {
             {user && (
               <div className="relative">
                 <div
-                  className="bg-white-A700 text-white rounded-full h-10 w-10 flex items-center justify-center cursor-pointer"
+                  className="mr-2 bg-white-A700 text-white rounded-full h-10 w-10 flex items-center justify-center cursor-pointer"
                   onClick={handleAvatarClick}
                 >
                   {getInitials(user.lastname + " " + user.firstname)}

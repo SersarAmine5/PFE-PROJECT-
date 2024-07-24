@@ -26,7 +26,7 @@ export default function SignupThreePage() {
 
   const handleSubmitChange = async () => {
     try {
-      const updatedUser = { ...user, isSubmitted: true };
+      const updatedUser = { ...user, isSubmitted: true, Highest_degree: degree, Area_of_expertise: specialization };
 
       console.log("Updated user:", updatedUser);
       await axios.put(`http://localhost:8800/api/users/updatesubmit/${user._id}`, updatedUser, { withCredentials: true });

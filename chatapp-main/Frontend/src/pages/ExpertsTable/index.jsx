@@ -73,7 +73,7 @@ const ExpertTable = () => {
     return (
         <div className="flex w-full flex-col items-center">
             {/* navigation bar section */}
-            <Header className="bg-gradient w-[1272px]" />
+            <Header className="bg-gradient w-full" />
             <div className="p-4 w-[1000px]">
                 <Button
                     className="self-start rounded-lg bg-gray-300 px-4 py-2 text-sm font-extrabold mb-[20px] hover:bg-gray-400 hover:text-white transition duration-300 ease-in-out h-12"
@@ -84,18 +84,22 @@ const ExpertTable = () => {
                 <table className="min-w-full bg-white border border-gray-200">
                     <thead>
                         <tr>
-                            <th className="py-2 px-4 border-b">Lastname</th>
-                            <th className="py-2 px-4 border-b">Firstname</th>
-                            <th className="py-2 px-4 border-b">Role</th>
+                            <th className="py-2 px-4 border-b text-left">Lastname</th>
+                            <th className="py-2 px-4 border-b text-left">Firstname</th>
+                            <th className="py-2 px-4 border-b text-center">Role</th>
+                            <th className="py-2 px-4 border-b text-center">Area of Expertise</th>
+                            <th className="py-2 px-4 border-b text-center">Highest Degree</th>
                             <th className="py-2 px-4 border-b">Modify</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {userData.map((user, index) => (
+                        {userData.filter((user) => user.role === "user").map((user, index) => (
                             <tr key={user._id} className={index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}>
                                 <td className="py-2 px-4 border-b">{user.lastname}</td>
                                 <td className="py-2 px-4 border-b">{user.firstname}</td>
-                                <td className="py-2 px-4 border-b">{user.role}</td>
+                                <td className="py-2 px-4 border-b text-center">{user.role}</td>
+                                <td className="py-2 px-4 border-b text-center">{user.Area_of_expertise || "None"}</td>
+                                <td className="py-2 px-4 border-b text-center">{user.Highest_degree || "None"}</td>
                                 <td className="py-2 px-4 border-b text-center">
                                     {showCheckboxes && (
                                         <input

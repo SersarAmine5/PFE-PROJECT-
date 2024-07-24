@@ -129,6 +129,8 @@ export const update_submit = async (req, res, next) => {
   try {
     const user = await User.findById(req.params.id);
     user.isSubmited = true;
+    user.Highest_degree = req.body.Highest_degree;
+    user.Area_of_expertise = req.body.Area_of_expertise;
     await user.save();
     res.status(200).json(user);
   } catch (error) {
